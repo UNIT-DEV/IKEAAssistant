@@ -1,0 +1,6 @@
+to_user_name='ToUserName'
+from_user_name='FromUserName'
+create_time='CreateTime'
+message_type='MsgType'
+content='Content'
+message_id='MsgId'

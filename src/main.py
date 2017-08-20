@@ -7,7 +7,6 @@ Created on 2017年8月19日
 import tornado.ioloop
 import tornado.web
 from requestprocesor.request_processor import RequestProcessor
-from src.requestprocesor import request_processor
 
 class MainHandler(tornado.web.RequestHandler):
     def get(self):

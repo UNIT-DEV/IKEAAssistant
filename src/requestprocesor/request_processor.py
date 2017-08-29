@@ -6,8 +6,8 @@ Created on 2017年8月19日
 '''
 from wechat.message_utils import MessageUtil
 import common_params
-from turing.turing import Turing
 import HTMLParser
+from nlu.nlu_processor import NluProcessor
 class RequestProcessor(object):
     '''
     classdocs
@@ -33,7 +33,7 @@ class RequestProcessor(object):
 
         # content
         # rsp_dict[common_params.content]=req_dict[common_params.content]
-        rsp_dict[common_params.content]=self.turing.request(req_dict[common_params.content])
+        rsp_dict[common_params.content]=self.nul_processor.process(req_dict[common_params.content])
 
         rsp_xml=self.message_util.gen_xml(rsp_dict)
         
@@ -47,5 +47,5 @@ class RequestProcessor(object):
     def __init__(self):
         self.message_util=MessageUtil()
         self.html_parser = HTMLParser.HTMLParser()
-        self.turing=Turing()
+        self.nul_processor=NluProcessor()
         

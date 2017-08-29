@@ -31,8 +31,11 @@ class RequestProcessor(object):
         rsp_dict[common_params.create_time]=str(msg_time)
         rsp_dict[common_params.message_type]=req_dict[common_params.message_type]
 
-        # content
-        # rsp_dict[common_params.content]=req_dict[common_params.content]
+        '''
+            核心处理步骤：
+                输入->req_dict[common_params.content]
+                输出->rsp_dict[common_params.content]
+        '''
         rsp_dict[common_params.content]=self.nul_processor.process(req_dict[common_params.content])
 
         rsp_xml=self.message_util.gen_xml(rsp_dict)

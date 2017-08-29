@@ -1,3 +1,9 @@
+#coding:utf-8
+'''
+Created on 2017年8月30日
+
+@author: liucaiquan
+'''
 from turing.turing import Turing
 from ikearobot.ikea_robot import IkeaRobot
 class NluProcessor(object):

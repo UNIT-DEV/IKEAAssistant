@@ -6,7 +6,7 @@ Created on 2017年8月19日
 '''
 from wechat.message_utils import MessageUtil
 import common_params
-from wechat import message_utils
+from turing.turing import Turing
 import HTMLParser
 class RequestProcessor(object):
     '''
@@ -30,9 +30,11 @@ class RequestProcessor(object):
         print 'after, msg_time= '+str(msg_time)
         rsp_dict[common_params.create_time]=str(msg_time)
         rsp_dict[common_params.message_type]=req_dict[common_params.message_type]
-        rsp_dict[common_params.content]=req_dict[common_params.content]
-#         rsp_dict[common_params.message_id]=req_dict[common_params.message_id]
-        
+
+        # content
+        # rsp_dict[common_params.content]=req_dict[common_params.content]
+        rsp_dict[common_params.content]=self.turing.request(req_dict[common_params.content])
+
         rsp_xml=self.message_util.gen_xml(rsp_dict)
         
         rsp_xml=self.html_parser.unescape(rsp_xml)
@@ -45,4 +47,5 @@ class RequestProcessor(object):
     def __init__(self):
         self.message_util=MessageUtil()
         self.html_parser = HTMLParser.HTMLParser()
+        self.turing=Turing()
         

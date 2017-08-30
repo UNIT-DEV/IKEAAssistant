@@ -10,9 +10,16 @@
 
 #######################
 from baiduunit.unit import BaiduUnit
+import json
 unit=BaiduUnit()
 
 # print unit.get_token()
 
 query="卫生间怎么去"
-print unit.query_request(9633, query, "").text
+rst= unit.query_request(9633, query, "").text
+
+json_object=json.loads(rst)
+print json_object
+result=json_object['result']
+schema= result['schema']
+print schema['intent_confidence']

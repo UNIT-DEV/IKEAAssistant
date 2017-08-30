@@ -15,7 +15,7 @@ class NluProcessor(object):
         if (rst.strip() == ''):
             return self.turing.request(request)
         else:
-            return 'result from ikea_robot'
+            return rst
 
     def __init__(self):
         self.ikea_robot = IkeaRobot()

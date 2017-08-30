@@ -1,4 +1,4 @@
-#coding:utf-8
+# coding:utf-8
 '''
 Created on 2017年8月30日
 
@@ -6,15 +6,17 @@ Created on 2017年8月30日
 '''
 from turing.turing import Turing
 from ikearobot.ikea_robot import IkeaRobot
+
+
 class NluProcessor(object):
     def process(self, request):
-        rst=self.ikea_robot.request(request)
+        rst = self.ikea_robot.request(request)
 
-        if(rst.strip()==''):
+        if (rst.strip() == ''):
             return self.turing.request(request)
         else:
             return 'result from ikea_robot'
 
     def __init__(self):
-        self.ikea_robot=IkeaRobot()
-        self.turing=Turing()
+        self.ikea_robot = IkeaRobot()
+        self.turing = Turing()

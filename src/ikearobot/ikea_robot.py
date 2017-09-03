@@ -6,14 +6,26 @@ Created on 2017年8月30日
 '''
 
 from baiduunit.unit import BaiduUnit
+from intent import Intent
+import json
 
 
 class IkeaRobot(object):
     def __init__(self):
         self.unit = BaiduUnit()
         self.scene_id = 9633
+        self.min_confidence = 50
 
     def request(self, query):
-        rst = ''
-        rst = self.unit.query_request(self.scene_id, query, "").text
-        return rst
+        unit_rst = self.unit.query_request(self.scene_id, query, "").text
+        bot_intent = Intent(unit_rst)
+        if (bot_intent.get_intent_confidence() < self.min_confidence):
+            return ''
+        else:
+            # TODO:根据实际的intent和slot搜索出合适的结果
+            dic = {}
+            dic['intent'] = bot_intent.get_intent()
+            dic['confidence'] = bot_intent.get_intent_confidence()
+            dic['slot'] = bot_intent.get_slots()
+            rst_json = json.dumps(dic, ensure_ascii=False)
+            return rst_json

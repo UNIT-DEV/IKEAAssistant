@@ -5,7 +5,8 @@ Created on 2017年8月20日
 @author: liucaiquan
 '''
 from lxml import etree
-import common_params
+
+from wechat import common_params
 
 
 class MessageUtil(object):
@@ -36,6 +37,8 @@ class MessageUtil(object):
                 dict[common_params.content] = element.text
             elif element.tag == common_params.message_id:
                 dict[common_params.message_id] = element.text
+            elif element.tag==common_params.recognition:
+                dict[common_params.recognition]=element.text
 
         return dict
 

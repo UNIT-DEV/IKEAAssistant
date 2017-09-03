@@ -10,3 +10,9 @@ create_time = 'CreateTime'
 message_type = 'MsgType'
 content = 'Content'
 message_id = 'MsgId'
+recognition = 'Recognition'
+
+
+# 消息类型
+text_msg_type='text'
+voice_msg_type='voice'

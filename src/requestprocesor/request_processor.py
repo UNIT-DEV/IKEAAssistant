@@ -9,10 +9,11 @@ Created on 2017年8月19日
     转发微信后台请求（后续添加线程池机制）
     请求结果封装成微信后台规范的数据结果返回给微信后台
 '''
-from wechat.message_utils import MessageUtil
-import common_params
 import HTMLParser
+
 from nlu.nlu_processor import NluProcessor
+from wechat import common_params
+from wechat.message_utils import MessageUtil
 
 
 class RequestProcessor(object):
@@ -36,7 +37,14 @@ class RequestProcessor(object):
         msg_time = msg_time + 3
         print 'after, msg_time= ' + str(msg_time)
         rsp_dict[common_params.create_time] = str(msg_time)
-        rsp_dict[common_params.message_type] = req_dict[common_params.message_type]
+        # 目前回复暂时都写死为文本方式
+        rsp_dict[common_params.message_type] = common_params.text_msg_type
+
+        query = ''
+        if (req_dict[common_params.message_type] == common_params.text_msg_type):
+            query = req_dict[common_params.content]
+        elif (req_dict[common_params.message_type] == common_params.voice_msg_type):
+            query = req_dict[common_params.recognition]
 
         '''
             核心处理步骤：
@@ -44,7 +52,7 @@ class RequestProcessor(object):
                 输出->rsp_dict[common_params.content]
         '''
         # 微信请求处理
-        rsp_dict[common_params.content] = self.nul_processor.process(req_dict[common_params.content])
+        rsp_dict[common_params.content] = self.nul_processor.process(query)
 
         # 微信返回数据封装
         rsp_xml = self.message_util.gen_xml(rsp_dict)

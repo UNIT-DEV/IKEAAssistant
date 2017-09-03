@@ -3,6 +3,11 @@
 Created on 2017年8月19日
 
 @author: liucaiquan
+
+数据接入层：
+    解析微信后台请求
+    转发微信后台请求（后续添加线程池机制）
+    请求结果封装成微信后台规范的数据结果返回给微信后台
 '''
 from wechat.message_utils import MessageUtil
 import common_params
@@ -21,8 +26,8 @@ class RequestProcessor(object):
     def post(self, request):
         print request.request.body
 
+        # 微信请求数据解析
         req_dict = self.message_util.parse_xml(request)
-
         rsp_dict = {}
         rsp_dict[common_params.to_user_name] = req_dict[common_params.from_user_name]
         rsp_dict[common_params.from_user_name] = req_dict[common_params.to_user_name]
@@ -38,10 +43,11 @@ class RequestProcessor(object):
                 输入->req_dict[common_params.content]
                 输出->rsp_dict[common_params.content]
         '''
+        # 微信请求处理
         rsp_dict[common_params.content] = self.nul_processor.process(req_dict[common_params.content])
 
+        # 微信返回数据封装
         rsp_xml = self.message_util.gen_xml(rsp_dict)
-
         rsp_xml = self.html_parser.unescape(rsp_xml)
 
         print rsp_xml

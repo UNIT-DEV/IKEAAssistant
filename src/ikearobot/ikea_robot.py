@@ -34,12 +34,16 @@ class IkeaRobot(object):
             rst_json = json.dumps(dic, ensure_ascii=False)
 
             if(dic['intent']=='USER_LOCATION'):
+                # 回复内容为图文消息
                 rsp_dict[common_params.key_message_type]=common_params.val_msg_type_news
+
+                # TODO: 根据实际情况进行更新
                 rsp_dict[common_params.key_msg_content_title]= 'news title'
                 rsp_dict[common_params.key_msg_content_description]= 'news description'
                 rsp_dict[common_params.key_msg_content_pciurl]= 'http://upload-images.jianshu.io/upload_images/851999-d6829d7687f9e074.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240'
                 rsp_dict[common_params.key_msg_content_url]= 'https://www.baidu.com'
             else:
+                # 回复内容为文本消息
                 rsp_dict[common_params.key_message_type] =common_params.val_msg_type_text
                 rsp_dict[common_params.key_content]=rst_json
 

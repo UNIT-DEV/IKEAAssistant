@@ -6,7 +6,7 @@ Created on 2017年3月7日
 '''
 import requests
 import json
-
+from wechat import common_params
 
 class Turing(object):
     '''
@@ -24,4 +24,9 @@ class Turing(object):
 
     def request(self, params):
         data = {self.key: self.key_value, self.info: params}
-        return requests.post(self.url, data=json.dumps(data)).text
+
+        rsp_dict={}
+        rsp_dict[common_params.key_message_type]=common_params.val_msg_type_text
+        rsp_dict[common_params.key_content]=requests.post(self.url, data=json.dumps(data)).text
+
+        return rsp_dict

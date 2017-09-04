@@ -13,5 +13,6 @@ class IkeaDatabase(object):
         return self.data[self.data.category == goods]
 
     def __init__(self):
-        self.database_path = '../static/data.csv'
+        # self.database_path = '../static/data.csv'
+        self.database_path = '/opt/IKEAAssistant/static/data.csv'
         self.data = pd.read_csv(self.database_path)

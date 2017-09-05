@@ -5,6 +5,7 @@ Created on 2017/9/3 下午11:08
 @author: liucaiquan
 '''
 import pandas as pd
+import common_params
 
 
 class IkeaDatabase(object):
@@ -14,5 +15,5 @@ class IkeaDatabase(object):
 
     def __init__(self):
         # self.database_path = '../static/data.csv'
-        self.database_path = '/opt/IKEAAssistant/static/data.csv'
+        self.database_path = common_params.project_root_path+'/static/data.csv'
         self.data = pd.read_csv(self.database_path)

@@ -13,6 +13,8 @@ from requestprocesor.request_processor import RequestProcessor
 
 class MainHandler(tornado.web.RequestHandler):
     def get(self):
+        print 'get request body: '
+        print self.request.body
         # 'echostr'字段用于微信后台服务的配置绑定
         echo_str = self.get_argument('echostr', default='_ARG_DEFAULT')
         if echo_str.strip() == '_ARG_DEFAULT':

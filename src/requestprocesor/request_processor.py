@@ -12,9 +12,10 @@ Created on 2017年8月19日
 import HTMLParser
 
 from nlu.nlu_processor import NluProcessor
-from wechat import common_params
+from wechat import wechat_msg_params
 from wechat.message_utils import MessageUtil
-
+import request_params
+import common_params
 
 class RequestProcessor(object):
     '''
@@ -22,7 +23,11 @@ class RequestProcessor(object):
     '''
 
     def get(self, requst):
-        requst.write("this is MyWeChatService!")
+        req_type = requst.get_argument(request_params.key_req_get_type, default='_ARG_DEFAULT')
+        if(req_type==request_params.val_req_get_type_webpage):
+            requst.render(common_params.project_root_path+'/src/html/index.html')
+        else:
+            requst.write("this is MyWeChatService!")
 
     def post(self, request):
         print request.request.body
@@ -32,21 +37,21 @@ class RequestProcessor(object):
 
         # 获取请求文本（语音会转成文本）
         query = ''
-        if (req_dict[common_params.key_message_type] == common_params.val_msg_type_text):
-            query = req_dict[common_params.key_content]
-        elif (req_dict[common_params.key_message_type] == common_params.val_msg_type_voice):
-            query = req_dict[common_params.key_recognition]
+        if (req_dict[wechat_msg_params.key_message_type] == wechat_msg_params.val_msg_type_text):
+            query = req_dict[wechat_msg_params.key_content]
+        elif (req_dict[wechat_msg_params.key_message_type] == wechat_msg_params.val_msg_type_voice):
+            query = req_dict[wechat_msg_params.key_recognition]
 
         # 微信请求处理(核心处理步骤)
         nul_process_rst=self.nul_processor.process(query)
 
-        nul_process_rst[common_params.key_to_user_name] = req_dict[common_params.key_from_user_name]
-        nul_process_rst[common_params.key_from_user_name] = req_dict[common_params.key_to_user_name]
-        msg_time = long(req_dict[common_params.key_create_time])
+        nul_process_rst[wechat_msg_params.key_to_user_name] = req_dict[wechat_msg_params.key_from_user_name]
+        nul_process_rst[wechat_msg_params.key_from_user_name] = req_dict[wechat_msg_params.key_to_user_name]
+        msg_time = long(req_dict[wechat_msg_params.key_create_time])
         print 'before, msg_time= ' + str(msg_time)
         msg_time = msg_time + 3
         print 'after, msg_time= ' + str(msg_time)
-        nul_process_rst[common_params.key_create_time] = str(msg_time)
+        nul_process_rst[wechat_msg_params.key_create_time] = str(msg_time)
 
         # 微信返回数据封装
         rsp_xml = self.message_util.gen_xml(nul_process_rst)

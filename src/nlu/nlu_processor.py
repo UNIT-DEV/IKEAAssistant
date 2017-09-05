@@ -9,14 +9,14 @@ Created on 2017年8月30日
 '''
 from turing.turing import Turing
 from ikearobot.ikea_robot import IkeaRobot
-from wechat import common_params
+from wechat import wechat_msg_params
 
 class NluProcessor(object):
     def process(self, request):
         # unit 处理
         rst = self.ikea_robot.request(request)
 
-        if (rst[common_params.key_message_type]==common_params.val_msg_type_invalid):
+        if (rst[wechat_msg_params.key_message_type]==wechat_msg_params.val_msg_type_invalid):
             # turing兜底
             return self.turing.request(request)
         else:

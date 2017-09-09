@@ -9,7 +9,10 @@ Created on 2017年8月19日
 import tornado.ioloop
 import tornado.web
 from requestprocesor.request_processor import RequestProcessor
-
+import global_common_params
+import sys
+reload(sys)
+sys.setdefaultencoding('utf-8')
 
 class MainHandler(tornado.web.RequestHandler):
     def get(self):
@@ -41,5 +44,5 @@ if __name__ == "__main__":
     init()
 
     app = make_app()
-    app.listen(80)
+    app.listen(global_common_params.server_port)
     tornado.ioloop.IOLoop.current().start()

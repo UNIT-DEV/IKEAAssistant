@@ -15,7 +15,7 @@ from nlu.nlu_processor import NluProcessor
 from wechat import wechat_msg_params
 from wechat.message_utils import MessageUtil
 import request_params
-import common_params
+import global_common_params
 
 class RequestProcessor(object):
     '''
@@ -24,8 +24,9 @@ class RequestProcessor(object):
 
     def get(self, requst):
         req_type = requst.get_argument(request_params.key_req_get_type, default='_ARG_DEFAULT')
+        req_html_file_name=requst.get_argument(request_params.key_req_get_html_file_name, default='_ARG_DEFAULT')
         if(req_type==request_params.val_req_get_type_webpage):
-            requst.render(common_params.project_root_path+'/src/html/index.html')
+            requst.render(global_common_params.project_root_path+'/htmls/'+req_html_file_name)
         else:
             requst.write("this is MyWeChatService!")
 

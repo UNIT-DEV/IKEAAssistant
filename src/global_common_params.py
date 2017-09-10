@@ -5,6 +5,7 @@ Created on 2017/9/5 上午11:06
 @author: liucaiquan
 '''
 import threading
+
 # 工程根目录位置
 project_root_path = '/opt/IKEAAssistant'
 # project_root_path = '..'
@@ -23,6 +24,4 @@ current_thread_num = 0
 # http请求锁
 request_lock = threading.Lock()
 # 线程计数器锁
-thread_cnt_lock=threading.Lock()
-
-
+thread_cnt_lock = threading.Lock()

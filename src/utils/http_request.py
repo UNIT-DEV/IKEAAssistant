@@ -7,26 +7,20 @@ Created on 2017年3月7日
 '''
 import requests
 
+
 class HttpRequest(object):
     '''
     classdocs
     '''
-
 
     def __init__(self, params):
         '''
         Constructor
         '''
         self.url = params
-        
-    def get(self, params):    
+
+    def get(self, params):
         return requests.get(self.url, params=params)
-    
+
     def post(self, params):
         return requests.post(self.url, data=params)
-        
-        
-        
-        
-        
-    

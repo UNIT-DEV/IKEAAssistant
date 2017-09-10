@@ -18,7 +18,7 @@ sys.setdefaultencoding('utf-8')
 
 
 class MainHandler(tornado.web.RequestHandler):
-    def add_to_tread_pool(self, req, request_type):
+    def __add_to_tread_pool(self, req, request_type):
         # global_common_params.thread_cnt_lock.acquire()
         # if (global_common_params.current_thread_num >= global_common_params.max_concurrent_thread_num):
         #     global_common_params.thread_cnt_lock.release()
@@ -41,22 +41,22 @@ class MainHandler(tornado.web.RequestHandler):
 
     def get(self):
         # global_common_params.request_lock.acquire()
-        self.add_to_tread_pool(self, 'get')
+        self.__add_to_tread_pool(self, 'get')
         # global_common_params.request_lock.release()
 
     def post(self):
         # global_common_params.request_lock.acquire()
-        self.add_to_tread_pool(self, 'post')
+        self.__add_to_tread_pool(self, 'post')
         # global_common_params.request_lock.release()
 
 
-def make_app():
+def __make_app():
     return tornado.web.Application([
         (r"/", MainHandler),
     ])
 
 
-def init():
+def __init():
     pass
     # pass
     # global request_processor
@@ -67,8 +67,8 @@ def init():
 
 
 if __name__ == "__main__":
-    init()
+    __init()
 
-    app = make_app()
+    app = __make_app()
     app.listen(global_common_params.server_port)
     tornado.ioloop.IOLoop.current().start()

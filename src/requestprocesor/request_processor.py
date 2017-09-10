@@ -23,7 +23,7 @@ class RequestProcessor(object):
     classdocs
     '''
 
-    def get(self, requst):
+    def __get(self, requst):
         req_type = requst.get_argument(request_params.key_req_get_type, default='_ARG_DEFAULT')
         req_html_file_name = requst.get_argument(request_params.key_req_get_html_file_name, default='_ARG_DEFAULT')
         if (req_type == request_params.val_req_get_type_webpage):
@@ -31,7 +31,7 @@ class RequestProcessor(object):
         else:
             requst.write("this is MyWeChatService!")
 
-    def post(self, request):
+    def __post(self, request):
         print request.request.body
 
         # 微信请求数据解析
@@ -70,16 +70,16 @@ class RequestProcessor(object):
         # 'echostr'字段用于微信后台服务的配置绑定
         echo_str = req.get_argument('echostr', default='_ARG_DEFAULT')
         if echo_str.strip() == '_ARG_DEFAULT':
-            self.get(req)
+            self.__get(req)
         else:
             req.write(echo_str)
 
-        # global_common_params.thread_cnt_lock.acquire()
-        # global_common_params.current_thread_num -= 1
-        # global_common_params.thread_cnt_lock.release()
+            # global_common_params.thread_cnt_lock.acquire()
+            # global_common_params.current_thread_num -= 1
+            # global_common_params.thread_cnt_lock.release()
 
     def post_processor(self, req):
-        self.post(req)
+        self.__post(req)
 
         # global_common_params.thread_cnt_lock.acquire()
         # global_common_params.current_thread_num -= 1

@@ -34,4 +34,4 @@ goods_price = 'price'
 
 # departments.csv
 department = 'department'
-index='index'
+index = 'index'

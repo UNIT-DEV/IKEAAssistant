@@ -10,7 +10,7 @@ import json
 
 class BaiduUnit(object):
     '''
-    classdocs
+    百度UNIT请求封装
     '''
 
     def __init__(self):
@@ -32,7 +32,10 @@ class BaiduUnit(object):
         self.unit_requet = HttpRequest(
             "https://aip.baidubce.com/rpc/2.0/solution/v1/unit_utterance?access_token=" + self.val_token)
 
-    # 获取token
+    '''
+        获取临时token
+    '''
+
     def get_token(self):
         data = {self.key_grant_type: self.val_grant_type, \
                 self.key_client_id: self.val_client_id, \
@@ -46,9 +49,10 @@ class BaiduUnit(object):
 
     '''
             用户query请求
-            scene_id：场景ID
-            query：用户query
-            session_id：session ID
+                scene_id：场景ID
+                query：用户query
+                session_id：session ID
+                返回值：UNIT返回结果
     '''
 
     def query_request(self, scene_id, query, session_id):

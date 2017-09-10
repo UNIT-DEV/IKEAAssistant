@@ -10,6 +10,9 @@ import database_params
 
 
 class IkeaDatabase(object):
+    '''
+        IKEA数据库管理
+    '''
     def __init__(self):
         # 最大的item书面
         self.max_item = 10;
@@ -22,10 +25,16 @@ class IkeaDatabase(object):
         self.departments_database_path = global_common_params.project_root_path + '/static/departments.csv'
         self.departments_data = pd.read_csv(self.departments_database_path)
 
-    # 地点查询
+    '''
+        位置查询
+            intent_name:位置/意图名字
+            返回值：位置索引值（整型）
+    '''
+
     def find_location(self, intent_name):
         # 返回所有返回值的第一个
         # return self.location_data[self.location_data.location == intent_name][database_params.index].values[0]
+        # TODO: 添加针对"上厕所类型的查询"
         for index in self.departments_data.index:
             departments = self.departments_data.loc[index][database_params.department]
             if (departments.find(intent_name) != -1):
@@ -34,7 +43,13 @@ class IkeaDatabase(object):
         # 没有位置正确的位置信息
         return -1
 
-    # 商品名查询
+    '''
+        商品信息查询
+            goods_name:需要查询的商品名
+            filter：商品过滤条件
+            返回值：符合条件的商品信息（list）
+    '''
+
     def find_goods(self, goods_name, filter):
         # return self.goods_data[self.goods_data.category == goods_name]
         # TODO: 后续需要添加filter过滤处理

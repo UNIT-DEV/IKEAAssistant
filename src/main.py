@@ -39,10 +39,18 @@ class MainHandler(tornado.web.RequestHandler):
             # t.setDaemon(True)
             # t.start()
 
+    '''
+        get请求处理
+    '''
+
     def get(self):
         # global_common_params.request_lock.acquire()
         self.__add_to_tread_pool(self, 'get')
         # global_common_params.request_lock.release()
+
+    '''
+        post请求处理
+    '''
 
     def post(self):
         # global_common_params.request_lock.acquire()

@@ -13,9 +13,19 @@ from requestprocesor import request_params
 
 
 class UserLocationProcessor(object):
+    '''
+        位置意图查询
+    '''
+
     def __init__(self):
         self.database = IkeaDatabase()
         self.html_builder = HtmlBuilder()
+
+    '''
+        页面url地址生成
+            html_file_name: 文件名
+            返回值：完整的url地址字符串
+    '''
 
     def __build_webpage_get_url(self, html_file_name):
         rst = ''
@@ -24,6 +34,12 @@ class UserLocationProcessor(object):
         rst += '&' + request_params.key_req_get_html_file_name + '=' + html_file_name
 
         return rst
+
+    '''
+        位置意图处理
+            intent：百度UNIT返回结果封装
+            返回值：结果字典
+    '''
 
     def process(self, intent):
         rsp_dict = {}
@@ -43,7 +59,6 @@ class UserLocationProcessor(object):
 
         html_file_name = self.html_builder.location_build(ikearobot_params.pic_resource_dict[index])
 
-        # TODO: title, description, pic_url后期需要更新
         rsp_dict[wechat_msg_params.key_message_type] = wechat_msg_params.val_msg_type_news
         rsp_dict[wechat_msg_params.key_msg_content_title] = location + u'位置信息'
         rsp_dict[wechat_msg_params.key_msg_content_description] = u'点击查看详细的位置信息'

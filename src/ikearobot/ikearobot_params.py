@@ -4,9 +4,6 @@ Created on 2017/9/9 下午3:34
 
 @author: liucaiquan
 '''
-# 资源服务器地址
-resource_web_server_url = ''
-
 # 图片资源
 pic_resource_dict = {}
 pic_resource_dict[
@@ -73,3 +70,6 @@ pic_resource_dict[
     31] = 'http://upload-images.jianshu.io/upload_images/4905018-59041ee2b9170483.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240'
 pic_resource_dict[
     32] = 'http://upload-images.jianshu.io/upload_images/4905018-bbfc713527ff1dff.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240'
+
+# 宜家商品详情图文回复title图片
+goods_detail_title_pic_url = 'https://gss0.baidu.com/7LsWdDW5_xN3otqbppnN2DJv/space/pic/item/1c950a7b02087bf429399430f8d3572c10dfcf16.jpg'

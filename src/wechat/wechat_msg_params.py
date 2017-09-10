@@ -4,6 +4,7 @@ Created on 2017年8月19日
 
 @author: liucaiquan
 '''
+# 基本消息信息
 key_to_user_name = 'ToUserName'
 key_from_user_name = 'FromUserName'
 key_create_time = 'CreateTime'

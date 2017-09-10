@@ -20,7 +20,7 @@ import global_common_params
 
 class RequestProcessor(object):
     '''
-    classdocs
+        请求处理器（接入层）
     '''
 
     def __get(self, requst):
@@ -63,6 +63,11 @@ class RequestProcessor(object):
 
         request.write(rsp_xml)
 
+    '''
+        get请求处理
+            req：请求句柄
+    '''
+
     def get_processor(self, req):
         print 'get request body: '
         print req.request.body
@@ -77,6 +82,11 @@ class RequestProcessor(object):
             # global_common_params.thread_cnt_lock.acquire()
             # global_common_params.current_thread_num -= 1
             # global_common_params.thread_cnt_lock.release()
+
+    '''
+        post请求处理：
+            req：请求句柄
+    '''
 
     def post_processor(self, req):
         self.__post(req)

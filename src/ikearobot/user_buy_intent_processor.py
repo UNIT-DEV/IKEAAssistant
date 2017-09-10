@@ -4,6 +4,7 @@ Created on 2017/9/9 下午3:19
 
 @author: liucaiquan
 '''
+import ikearobot_params
 from html_builder import HtmlBuilder
 from wechat import wechat_msg_params
 from database.ikea_database import IkeaDatabase
@@ -12,9 +13,19 @@ from requestprocesor import request_params
 
 
 class UserBuyProcessor(object):
+    '''
+        商品详情查询处理
+    '''
+
     def __init__(self):
         self.html_builder = HtmlBuilder()
         self.database = IkeaDatabase()
+
+    '''
+        页面url地址生成
+            html_file_name: 文件名
+            返回值：完整的url地址字符串
+    '''
 
     def __build_webpage_get_url(self, html_file_name):
         rst = ''
@@ -23,6 +34,12 @@ class UserBuyProcessor(object):
         rst += '&' + request_params.key_req_get_html_file_name + '=' + html_file_name
 
         return rst
+
+    '''
+        商品详情意图处理
+            intent：百度UNIT返回结果封装
+            返回值：结果字典
+    '''
 
     def process(self, intent):
         rsp_dict = {}
@@ -38,12 +55,11 @@ class UserBuyProcessor(object):
 
         html_file_name = self.html_builder.goods_detial_build(find_rst)
 
-        # TODO: title, description, pic_url后期需要更新
         rsp_dict[wechat_msg_params.key_message_type] = wechat_msg_params.val_msg_type_news
         rsp_dict[wechat_msg_params.key_msg_content_title] = str(goods_filter) + u'的' + str(goods_name) + u'详情'
         rsp_dict[wechat_msg_params.key_msg_content_description] = u'点击查看商品详情'
         rsp_dict[
-            wechat_msg_params.key_msg_content_pciurl] = 'https://gss0.baidu.com/7LsWdDW5_xN3otqbppnN2DJv/space/pic/item/1c950a7b02087bf429399430f8d3572c10dfcf16.jpg'
+            wechat_msg_params.key_msg_content_pciurl] = ikearobot_params.goods_detail_title_pic_url
         rsp_dict[wechat_msg_params.key_msg_content_url] = self.__build_webpage_get_url(html_file_name)
 
         return rsp_dict

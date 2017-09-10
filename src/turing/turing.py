@@ -11,7 +11,7 @@ from wechat import wechat_msg_params
 
 class Turing(object):
     '''
-    classdocs
+    图灵接口处理
     '''
 
     def __init__(self):
@@ -22,6 +22,12 @@ class Turing(object):
         self.key_value = "5e3c2b7eb5bb42caad216d02cde38920"
         self.info = "info"
         self.url = "http://www.tuling123.com/openapi/api"
+
+    '''
+        图灵接口请求
+            params：请求字符串
+            返回值：字典结果
+    '''
 
     def request(self, params):
         data = {self.key: self.key_value, self.info: params}

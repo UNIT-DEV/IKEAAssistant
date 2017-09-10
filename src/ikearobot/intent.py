@@ -9,7 +9,9 @@ from baiduunit import baidu_unit_params
 
 
 class Intent(object):
-    pass
+    '''
+        百度UNIT返回结果解析
+    '''
 
     def __init__(self, query):
         json_object = json.loads(query)
@@ -33,19 +35,27 @@ class Intent(object):
         else:
             print '词槽= 空'
 
-    # 置信度
+    '''
+        获取意图置信度
+            返回值：浮点类型
+    '''
+
     def get_intent_confidence(self):
         return self.intent_confidence
 
-    # 意图
+    '''
+        获取意图：
+            返回值：意图字符串
+    '''
+
     def get_intent(self):
         return self.current_qu_intent
 
-    # # 词槽
-    # def get_slot(self, index):
-    #     return self.slots[index]
+    '''
+        获取位置的词槽：
+            返回值：location 的索引值（整型）
+    '''
 
-    # 位置词槽
     def get_slot_location(self):
         if (self.slots.has_key(baidu_unit_params.slot_user_department)):
             return self.slots[baidu_unit_params.slot_user_department]
@@ -54,14 +64,22 @@ class Intent(object):
         else:
             return None
 
-    # 商品名词槽
+    '''
+        获取商品名的词槽
+            返回值：商品名
+    '''
+
     def get_slot_goods_name(self):
         if (self.slots.has_key(baidu_unit_params.slot_user_goods)):
             return self.slots[baidu_unit_params.slot_user_goods]
         else:
             return None
 
-    # 商品名过滤条件
+    '''
+        获取商品的过滤条件
+            返回值：过滤条件
+    '''
+
     def get_slot_goods_filter(self):
         if (self.slots.has_key(baidu_unit_params.slot_user_cheap)):
             return self.slots[baidu_unit_params.slot_user_cheap]

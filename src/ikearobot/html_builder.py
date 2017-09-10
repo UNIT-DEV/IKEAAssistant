@@ -11,13 +11,26 @@ import uuid
 
 
 class HtmlBuilder(object):
+    '''
+        HTML页面生成器
+    '''
+
     def __init__(self):
         pass
+
+    '''
+        商品条目生成
+    '''
 
     def __item_build(self, name, link, broad, price):
         return '<li class="product-item">' + '<a href=' + link + '>' + name + '\t' + broad + '\t' + price + '</a >' + '</li>'
 
-    # 商品详情页面生成
+    '''
+        商品详情页面生成
+            goods_details:商品详情信息
+            返回值：生成的html页面文件名
+    '''
+
     def goods_detial_build(self, goods_details):
         prefix = '''
                     <!DOCTYPE html>
@@ -51,7 +64,12 @@ class HtmlBuilder(object):
 
         return html_file_name
 
-    # 位置页面生成
+    '''
+        商品详情页面生成
+            pic_url:位置图片url
+            返回值：生成的html页面文件名
+    '''
+
     def location_build(self, pic_url):
         prefix = '''
                             <!DOCTYPE html>

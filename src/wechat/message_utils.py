@@ -11,13 +11,19 @@ from wechat import wechat_msg_params
 
 class MessageUtil(object):
     '''
-    classdocs
+    微信接口信息解析和封装
     '''
 
     def __init__(self):
         '''
         Constructor
         '''
+
+    '''
+        微信请求解析
+            request：微信请求句柄
+            返回信息dict
+    '''
 
     def parse_xml(self, request):
         xml_content = request.request.body
@@ -41,6 +47,12 @@ class MessageUtil(object):
                 dict[wechat_msg_params.key_recognition] = element.text
 
         return dict
+
+    '''
+        微信返回结果生成
+            dict：返回的微信信息内容
+            返回值：XML格式字符串
+    '''
 
     def gen_xml(self, dict):
         root = etree.Element('xml')

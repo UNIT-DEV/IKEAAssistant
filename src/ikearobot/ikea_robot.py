@@ -15,6 +15,10 @@ from user_location_intent_processor import UserLocationProcessor
 
 
 class IkeaRobot(object):
+    '''
+        IKEA机器人（对应图灵机器人）
+    '''
+
     def __init__(self):
         self.unit = BaiduUnit()
         self.scene_id = 9633
@@ -22,6 +26,12 @@ class IkeaRobot(object):
         self.database = IkeaDatabase()
         self.user_buy_processor = UserBuyProcessor()
         self.user_location_processor = UserLocationProcessor()
+
+    '''
+        ikea请求处理
+            query：http请求句柄
+            返回值：结果字典
+    '''
 
     def request(self, query):
         rsp_dict = {}
@@ -35,22 +45,8 @@ class IkeaRobot(object):
             query_intent = bot_intent.get_intent()
 
             if (query_intent == 'USER_LOCATION'):
-                # # 临时测试，后期直接删除
-                # rsp_dict[wechat_msg_params.key_message_type]=wechat_msg_params.val_msg_type_news
-                # rsp_dict[wechat_msg_params.key_msg_content_title]= 'title'
-                # rsp_dict[wechat_msg_params.key_msg_content_description]= 'description'
-                # rsp_dict[wechat_msg_params.key_msg_content_pciurl]= 'http://upload-images.jianshu.io/upload_images/4905018-b72bb56e2ac68048.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240'
-                # rsp_dict[wechat_msg_params.key_msg_content_url]= 'http://120.25.220.14?req_get_type=webpage'
-
-                # TODO:根据实际的intent和slot搜索出合适的结果(数据来源self.database)
                 return self.user_location_processor.process(bot_intent)
             elif (query_intent == 'USER_BUY'):
-                # # 临时测试，后续直接删除
-                # rsp_dict[wechat_msg_params.key_message_type] =wechat_msg_params.val_msg_type_text
-                # rsp_dict[wechat_msg_pa˙rams.key_content]=rst_json
-                #
-                # rsp_dict=self.user_buy_processor.process(query_dic)
-
                 return self.user_buy_processor.process(bot_intent)
             else:
                 # 兜底

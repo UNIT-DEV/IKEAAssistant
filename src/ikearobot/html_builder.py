@@ -58,9 +58,11 @@ class HtmlBuilder(object):
                                             <title></title>
                                     </head>
                                     <body>
+                                        <div align=center>
                         '''
 
         suffix = '''
+                                        </div>                    
                                     </body>
                                 </html>
                        '''

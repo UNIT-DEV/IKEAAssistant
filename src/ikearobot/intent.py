@@ -22,11 +22,14 @@ class Intent(object):
         print '意图='+str(self.current_qu_intent)
         # 词槽
         bot_merged_slots = schema['bot_merged_slots']
-        self.slots={}
-        print 'bot_merged_slots= '+str(bot_merged_slots)
-        for bot_slot in bot_merged_slots:
-            self.slots[bot_slot['type']]=bot_slot['original_word']
-            print '词槽='+str(self.slots[bot_slot['type']])
+        self.slots = {}
+        if bot_merged_slots:
+            print 'bot_merged_slots= '+str(bot_merged_slots)
+            for bot_slot in bot_merged_slots:
+                self.slots[bot_slot['type']]=bot_slot['original_word']
+                print '词槽='+str(self.slots[bot_slot['type']])
+        else:
+            print '词槽= 空'
 
     # 置信度
     def get_intent_confidence(self):
@@ -42,14 +45,19 @@ class Intent(object):
 
     # 位置词槽
     def get_slot_location(self):
-        if(self.slots[baidu_unit_params.slot_user_department].strip()!=''):
+        if(self.slots.has_key(baidu_unit_params.slot_user_department)):
             return self.slots[baidu_unit_params.slot_user_department]
-        else:
+        elif(self.slots.has_key(baidu_unit_params.slot_user_intent)):
             return self.slots[baidu_unit_params.slot_user_intent]
+        else:
+            return None
 
     # 商品名词槽
     def get_slot_goods_name(self):
-        return self.slots[baidu_unit_params.slot_user_goods]
+        if(self.slots.has_key(baidu_unit_params.slot_user_goods)):
+            return self.slots[baidu_unit_params.slot_user_goods]
+        else:
+            return None
 
     # 商品名过滤条件
     def get_slot_goods_filter(self):

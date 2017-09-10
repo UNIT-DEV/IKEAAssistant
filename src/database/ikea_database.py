@@ -31,6 +31,9 @@ class IkeaDatabase(object):
             if(departments.find(intent_name)!=-1):
                 return self.departments_data.loc[index][database_params.index]
 
+        # 没有位置正确的位置信息
+        return -1
+
     # 商品名查询
     def find_goods(self, goods_name, filter):
         # return self.goods_data[self.goods_data.category == goods_name]

@@ -25,16 +25,26 @@ class UserLocationProcessor(object):
 
     def process(self, intent):
         rsp_dict = {}
-        rsp_dict[wechat_msg_params.key_message_type] = wechat_msg_params.val_msg_type_news
+        rsp_dict[wechat_msg_params.key_message_type] = wechat_msg_params.val_msg_type_invalid
 
         location=intent.get_slot_location()
+
+        # slot中没有位置信息
+        if location is None:
+            return rsp_dict
+
         index=self.database.find_location(location)
+
+        # 位置信息无效
+        if(index<=0):
+            return rsp_dict
 
         html_file_name=self.html_builder.location_build(ikearobot_params.pic_resource_dict[index])
 
         # TODO: title, description, pic_url后期需要更新
-        rsp_dict[wechat_msg_params.key_msg_content_title] = 'title'
-        rsp_dict[wechat_msg_params.key_msg_content_description] = 'description'
+        rsp_dict[wechat_msg_params.key_message_type] = wechat_msg_params.val_msg_type_news
+        rsp_dict[wechat_msg_params.key_msg_content_title] = location+u'位置信息'
+        rsp_dict[wechat_msg_params.key_msg_content_description] = u'点击查看详细的位置信息'
         rsp_dict[wechat_msg_params.key_msg_content_pciurl] = ikearobot_params.pic_resource_dict[index]
         rsp_dict[wechat_msg_params.key_msg_content_url] =self.build_webpage_get_url(html_file_name)
         return rsp_dict

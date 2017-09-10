@@ -12,4 +12,5 @@ project_root_path='/opt/IKEAAssistant'
 server_port = 80
 
 # webserver地址
-web_server_url='http://120.25.220.14'
+# web_server_url='http://120.25.220.14'
+web_server_url='http://www.eddy2017.com'

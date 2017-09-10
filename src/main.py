@@ -28,7 +28,7 @@ class MainHandler(tornado.web.RequestHandler):
         # global_common_params.current_thread_num += 1
         # global_common_params.thread_cnt_lock.release()
 
-        request_processor = RequestProcessor()
+        # request_processor = RequestProcessor()
         if (request_type == 'get'):
             # t = threading.Thread(target=request_processor.get_processor, args=(req,))
             request_processor.get_processor(req)
@@ -57,10 +57,8 @@ def __make_app():
 
 
 def __init():
-    pass
-    # pass
-    # global request_processor
-    # request_processor = RequestProcessor()
+    global request_processor
+    request_processor = RequestProcessor()
 
     # global request_lock
     # request_lock = threading.Lock()

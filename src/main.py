@@ -10,23 +10,44 @@ import tornado.ioloop
 import tornado.web
 from requestprocesor.request_processor import RequestProcessor
 import global_common_params
+import threading
 import sys
+
 reload(sys)
 sys.setdefaultencoding('utf-8')
 
+
 class MainHandler(tornado.web.RequestHandler):
-    def get(self):
-        print 'get request body: '
-        print self.request.body
-        # 'echostr'字段用于微信后台服务的配置绑定
-        echo_str = self.get_argument('echostr', default='_ARG_DEFAULT')
-        if echo_str.strip() == '_ARG_DEFAULT':
-            request_processor.get(self)
+    def add_to_tread_pool(self, req, request_type):
+        # global_common_params.thread_cnt_lock.acquire()
+        # if (global_common_params.current_thread_num >= global_common_params.max_concurrent_thread_num):
+        #     global_common_params.thread_cnt_lock.release()
+        #     print 'warning: 已超过最大并发线程数目'
+        #     return
+        #
+        # global_common_params.current_thread_num += 1
+        # global_common_params.thread_cnt_lock.release()
+
+        request_processor = RequestProcessor()
+        if (request_type == 'get'):
+            # t = threading.Thread(target=request_processor.get_processor, args=(req,))
+            request_processor.get_processor(req)
         else:
-            self.write(echo_str)
+            # t = threading.Thread(target=request_processor.post_processor, args=(req,))
+            request_processor.post_processor(req)
+
+            # t.setDaemon(True)
+            # t.start()
+
+    def get(self):
+        # global_common_params.request_lock.acquire()
+        self.add_to_tread_pool(self, 'get')
+        # global_common_params.request_lock.release()
 
     def post(self):
-        request_processor.post(self)
+        # global_common_params.request_lock.acquire()
+        self.add_to_tread_pool(self, 'post')
+        # global_common_params.request_lock.release()
 
 
 def make_app():
@@ -36,8 +57,13 @@ def make_app():
 
 
 def init():
-    global request_processor
-    request_processor = RequestProcessor()
+    pass
+    # pass
+    # global request_processor
+    # request_processor = RequestProcessor()
+
+    # global request_lock
+    # request_lock = threading.Lock()
 
 
 if __name__ == "__main__":

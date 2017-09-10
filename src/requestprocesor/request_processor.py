@@ -10,12 +10,13 @@ Created on 2017年8月19日
     请求结果封装成微信后台规范的数据结果返回给微信后台
 '''
 import HTMLParser
-
+import threading
 from nlu.nlu_processor import NluProcessor
 from wechat import wechat_msg_params
 from wechat.message_utils import MessageUtil
 import request_params
 import global_common_params
+
 
 class RequestProcessor(object):
     '''
@@ -24,9 +25,9 @@ class RequestProcessor(object):
 
     def get(self, requst):
         req_type = requst.get_argument(request_params.key_req_get_type, default='_ARG_DEFAULT')
-        req_html_file_name=requst.get_argument(request_params.key_req_get_html_file_name, default='_ARG_DEFAULT')
-        if(req_type==request_params.val_req_get_type_webpage):
-            requst.render(global_common_params.project_root_path+'/htmls/'+req_html_file_name)
+        req_html_file_name = requst.get_argument(request_params.key_req_get_html_file_name, default='_ARG_DEFAULT')
+        if (req_type == request_params.val_req_get_type_webpage):
+            requst.render(global_common_params.project_root_path + '/htmls/' + req_html_file_name)
         else:
             requst.write("this is MyWeChatService!")
 
@@ -44,7 +45,7 @@ class RequestProcessor(object):
             query = req_dict[wechat_msg_params.key_recognition]
 
         # 微信请求处理(核心处理步骤)
-        nul_process_rst=self.nul_processor.process(query)
+        nul_process_rst = self.nul_processor.process(query)
 
         nul_process_rst[wechat_msg_params.key_to_user_name] = req_dict[wechat_msg_params.key_from_user_name]
         nul_process_rst[wechat_msg_params.key_from_user_name] = req_dict[wechat_msg_params.key_to_user_name]
@@ -61,6 +62,28 @@ class RequestProcessor(object):
         print rsp_xml
 
         request.write(rsp_xml)
+
+    def get_processor(self, req):
+        print 'get request body: '
+        print req.request.body
+
+        # 'echostr'字段用于微信后台服务的配置绑定
+        echo_str = req.get_argument('echostr', default='_ARG_DEFAULT')
+        if echo_str.strip() == '_ARG_DEFAULT':
+            self.get(req)
+        else:
+            req.write(echo_str)
+
+        # global_common_params.thread_cnt_lock.acquire()
+        # global_common_params.current_thread_num -= 1
+        # global_common_params.thread_cnt_lock.release()
+
+    def post_processor(self, req):
+        self.post(req)
+
+        # global_common_params.thread_cnt_lock.acquire()
+        # global_common_params.current_thread_num -= 1
+        # global_common_params.thread_cnt_lock.release()
 
     def __init__(self):
         self.message_util = MessageUtil()

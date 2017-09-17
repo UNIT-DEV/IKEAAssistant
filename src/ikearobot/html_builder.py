@@ -70,7 +70,7 @@ class HtmlBuilder(object):
             返回值：生成的html页面文件名
     '''
 
-    def location_build(self, pic_url):
+    def location_build(self, pic_url, description):
         prefix = '''
                             <!DOCTYPE html>
                                 <html>
@@ -89,7 +89,7 @@ class HtmlBuilder(object):
                        '''
         img = '<img src=' + pic_url + '/>'
 
-        html_content = prefix + img + suffix
+        html_content = prefix + img + description + suffix
 
         html_file_name = str(uuid.uuid1()) + '.html'
         f_path = global_common_params.project_root_path + '/htmls/' + html_file_name

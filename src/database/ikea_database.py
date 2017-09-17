@@ -13,6 +13,7 @@ class IkeaDatabase(object):
     '''
         IKEA数据库管理
     '''
+
     def __init__(self):
         # 最大的item书面
         self.max_item = 10;
@@ -28,7 +29,7 @@ class IkeaDatabase(object):
     '''
         位置查询
             intent_name:位置/意图名字
-            返回值：位置索引值（整型）
+            返回值：位置索引值（整型）和位置的描述信息
     '''
 
     def find_location(self, intent_name):
@@ -37,11 +38,18 @@ class IkeaDatabase(object):
         # TODO: 添加针对"上厕所类型的查询"
         for index in self.departments_data.index:
             departments = self.departments_data.loc[index][database_params.department]
-            if (departments.find(intent_name) != -1):
-                return self.departments_data.loc[index][database_params.index]
+            if departments.find(intent_name) != -1:
+                return self.departments_data.loc[index][database_params.index], self.departments_data.loc[index][
+                    database_params.description]
+
+            intent = str(self.departments_data.loc[index][database_params.intent])
+            # print 'intent= ', intent
+            if intent.find(intent_name) != -1:
+                return self.departments_data.loc[index][database_params.index], self.departments_data.loc[index][
+                    database_params.description]
 
         # 没有位置正确的位置信息
-        return -1
+        return -1, ''
 
     '''
         商品信息查询

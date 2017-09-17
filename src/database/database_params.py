@@ -35,3 +35,5 @@ goods_price = 'price'
 # departments.csv
 department = 'department'
 index = 'index'
+description = 'description'
+intent = 'intent'

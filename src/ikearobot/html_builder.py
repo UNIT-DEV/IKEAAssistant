@@ -23,7 +23,8 @@ class HtmlBuilder(object):
     '''
 
     def __item_build(self, name, link, broad, price):
-        return '<li class="product-item">' + '<a href=' + link + '>' + name + '\t' + broad + '\t' + price + '</a >' + '</li>'
+        str_price = str(price)
+        return '<li class="product-item">' + '<a href=' + link + '>' + name + '\t' + broad + '\t' + str_price + '</a >' + '</li>'
 
     '''
         商品详情页面生成

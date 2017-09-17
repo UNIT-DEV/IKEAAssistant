@@ -6,6 +6,7 @@ Created on 2017/9/3 下午2:05
 '''
 import json
 from baiduunit import baidu_unit_params
+from database import database_params
 
 
 class Intent(object):
@@ -82,10 +83,10 @@ class Intent(object):
 
     def get_slot_goods_filter(self):
         if (self.slots.has_key(baidu_unit_params.slot_user_cheap)):
-            return self.slots[baidu_unit_params.slot_user_cheap]
+            return database_params.goods_cheap, self.slots[baidu_unit_params.slot_user_cheap]
         elif (self.slots.has_key(baidu_unit_params.slot_user_discount)):
-            return self.slots[baidu_unit_params.slot_user_discount]
+            return database_params.goods_discount, self.slots[baidu_unit_params.slot_user_discount]
         elif (self.slots.has_key(baidu_unit_params.slot_user_new)):
-            return self.slots[baidu_unit_params.slot_user_new]
+            return database_params.goods_newest, self.slots[baidu_unit_params.slot_user_new]
         else:
-            return ''
+            return '', ''

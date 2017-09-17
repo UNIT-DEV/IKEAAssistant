@@ -7,6 +7,7 @@ Created on 2017/9/3 下午11:08
 import pandas as pd
 import global_common_params
 import database_params
+import re
 
 
 class IkeaDatabase(object):
@@ -16,7 +17,6 @@ class IkeaDatabase(object):
 
     def __init__(self):
         # 最大的item书面
-        self.max_item = 10;
         self.goods_database_path = global_common_params.project_root_path + '/static/data.csv'
         self.goods_data = pd.read_csv(self.goods_database_path)
 
@@ -51,17 +51,44 @@ class IkeaDatabase(object):
         return -1, ''
 
     '''
-        商品信息查询
+        以商品是否为最新，是否打折为过滤条件进行商品查找
             goods_name:需要查询的商品名
             filter：商品过滤条件
             返回值：符合条件的商品信息（list）
     '''
 
-    def find_goods(self, goods_name, filter):
-        # return self.goods_data[self.goods_data.category == goods_name]
-        # TODO: 后续需要添加filter过滤处理
+    def __find_goods_new_discount(self, goods_name, goods_filter):
         rst = []
-        cnt = 0
+        for index in self.goods_data.index:
+            row = self.goods_data.loc[index]
+            if (row[database_params.goods_name].find(goods_name) != -1):
+                # 商品是否为最新的
+                if goods_filter == database_params.goods_newest:
+                    if row[database_params.goods_newest] == 'False':
+                        continue
+
+                # 商品是否为打折的
+                if goods_filter == database_params.goods_discount:
+                    if row[database_params.goods_discount] == 'False':
+                        continue
+
+                item = {}
+                item[database_params.goods_name] = row[database_params.goods_name]
+                item[database_params.goods_link] = row[database_params.goods_link]
+                item[database_params.goods_broad] = row[database_params.goods_broad]
+                item[database_params.goods_price] = row[database_params.goods_price]
+                rst.append(item)
+        return rst
+
+    '''
+        以价格高低进行排序，并进行商品查找
+            goods_name:需要查询的商品名
+            filter：商品过滤条件
+            返回值：符合条件的商品信息（list）
+    '''
+
+    def __find_goods_price(self, goods_name, goods_filter):
+        rst = []
         for index in self.goods_data.index:
             row = self.goods_data.loc[index]
             if (row[database_params.goods_name].find(goods_name) != -1):
@@ -69,12 +96,41 @@ class IkeaDatabase(object):
                 item[database_params.goods_name] = row[database_params.goods_name]
                 item[database_params.goods_link] = row[database_params.goods_link]
                 item[database_params.goods_broad] = row[database_params.goods_broad]
-                item[database_params.goods_price] = row[database_params.goods_price]
+
+                price = row[database_params.goods_price]
+
+                # print 'type(price):', type(price)
+                # print 'raw price= ', price
+                price = re.sub('[^0-9.,]', '', price)
+                price = price.replace(',', '')
+
+                # print 'price=', price
+                # print 'len(price)=', len(price)
+                # for i in range(len(price)):
+                #     print'char= ', price[i]
+
+                price_float = float(price)
+                item[database_params.goods_price] = price_float
                 rst.append(item)
-                cnt += 1
-                if (cnt == self.max_item):
-                    break
+
+        rst.sort(key=lambda obj: obj.get(database_params.goods_cheap), reverse=False)
+
         return rst
+
+    '''
+        商品信息查询
+            goods_name:需要查询的商品名
+            filter：商品过滤条件
+            返回值：符合条件的商品信息（list）
+    '''
+
+    def find_goods(self, goods_name, goods_filter):
+        print 'filter= ', filter
+
+        if goods_filter == database_params.goods_cheap:
+            return self.__find_goods_price(goods_name, goods_filter)
+        else:
+            return self.__find_goods_new_discount(goods_name, goods_filter)
 
     def test(self):
         print type(self.goods_data.category)

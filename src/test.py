@@ -10,15 +10,15 @@
 
 #######################
 ##百度UNIT接口测试
-from baiduunit.baidu_unit import BaiduUnit
-import json
-unit=BaiduUnit()
-#
-# # print unit.get_token()
-#
-query="洗手间在那儿"
-rst= unit.query_request(9633, query, "").text
-print rst
+# from baiduunit.baidu_unit import BaiduUnit
+# import json
+# unit=BaiduUnit()
+# #
+# # # print unit.get_token()
+# #
+# query="洗手间在那儿"
+# rst= unit.query_request(9633, query, "").text
+# print rst
 #
 # json_object=json.loads(rst)
 # # print json_object
@@ -57,6 +57,15 @@ print rst
 # html_filename=builder.build(list)
 # print html_filename
 
+##################
+# a=' 1.1 '
+# # a=a.strip()
+# a=float(a)
+# print 'a=',a
+import re
 
+a = '¥111,0.1'
 
-
+a = re.sub('[^0-9.,]', '', a)
+print a
+print len(a)

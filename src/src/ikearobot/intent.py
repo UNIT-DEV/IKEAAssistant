@@ -83,10 +83,10 @@ class Intent(object):
 
     def get_slot_goods_filter(self):
         if (self.slots.has_key(baidu_unit_params.slot_user_cheap)):
-            return database_params.goods_cheap, self.slots[baidu_unit_params.slot_user_cheap]
+            return database_params.goods_cheap
         elif (self.slots.has_key(baidu_unit_params.slot_user_discount)):
-            return database_params.goods_discount, self.slots[baidu_unit_params.slot_user_discount]
+            return database_params.goods_discount
         elif (self.slots.has_key(baidu_unit_params.slot_user_new)):
-            return database_params.goods_newest, self.slots[baidu_unit_params.slot_user_new]
+            return database_params.goods_newest
         else:
-            return '', ''
+            return ''

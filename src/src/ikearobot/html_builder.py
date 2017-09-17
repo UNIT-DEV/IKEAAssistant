@@ -23,8 +23,7 @@ class HtmlBuilder(object):
     '''
 
     def __item_build(self, name, link, broad, price):
-        str_price = str(price)
-        return '<li class="product-item">' + '<a href=' + link + '>' + name + '\t' + broad + '\t￥' + str_price + '</a >' + '</li>'
+        return '<li class="product-item">' + '<a href=' + link + '>' + name + '\t' + broad + '\t' + str(price) + '</a >' + '</li>'
 
     '''
         商品详情页面生成
@@ -88,12 +87,10 @@ class HtmlBuilder(object):
                                     </body>
                                 </html>
                        '''
-        img = '<img width="100%" src=' + pic_url + '/>'
-
-        description = '<p style="font-size:32px">' + description + '</p>'
+        img = '<img src=' + pic_url + '/>'
 
         html_content = prefix + img + description + suffix
-        
+
         html_file_name = str(uuid.uuid1()) + '.html'
         f_path = global_common_params.project_root_path + '/htmls/' + html_file_name
         f = open(f_path, 'w')

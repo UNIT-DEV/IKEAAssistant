@@ -16,9 +16,7 @@ from wechat import wechat_msg_params
 from wechat.message_utils import MessageUtil
 import request_params
 import global_common_params
-import sys
-reload(sys)
-sys.setdefaultencoding('utf8')
+
 
 class RequestProcessor(object):
     '''
@@ -61,7 +59,7 @@ class RequestProcessor(object):
         rsp_xml = self.message_util.gen_xml(nul_process_rst)
         rsp_xml = self.html_parser.unescape(rsp_xml)
 
-        #print(u"%s" % rsp_xml)
+        print rsp_xml
 
         request.write(rsp_xml)
 

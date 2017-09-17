@@ -99,15 +99,15 @@ class IkeaDatabase(object):
 
                 price = row[database_params.goods_price]
 
-                # print 'type(price):', type(price)
-                # print 'raw price= ', price
+                print 'type(price):', type(price)
+                print 'raw price= ', price
                 price = re.sub('[^0-9.,]', '', price)
                 price = price.replace(',', '')
 
-                # print 'price=', price
-                # print 'len(price)=', len(price)
-                # for i in range(len(price)):
-                #     print'char= ', price[i]
+                print 'price=', price
+                print 'len(price)=', len(price)
+                for i in range(len(price)):
+                    print'char= ', price[i]
 
                 price_float = float(price)
                 item[database_params.goods_price] = price_float

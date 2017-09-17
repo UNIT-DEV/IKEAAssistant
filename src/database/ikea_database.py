@@ -35,7 +35,6 @@ class IkeaDatabase(object):
     def find_location(self, intent_name):
         # 返回所有返回值的第一个
         # return self.location_data[self.location_data.location == intent_name][database_params.index].values[0]
-        # TODO: 添加针对"上厕所类型的查询"
         for index in self.departments_data.index:
             departments = self.departments_data.loc[index][database_params.department]
             if departments.find(intent_name) != -1:

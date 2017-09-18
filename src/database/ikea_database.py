@@ -41,11 +41,22 @@ class IkeaDatabase(object):
                 return self.departments_data.loc[index][database_params.index], self.departments_data.loc[index][
                     database_params.description]
 
+            # 使用intent匹配
             intent = str(self.departments_data.loc[index][database_params.intent])
-            # print 'intent= ', intent
-            if intent.find(intent_name) != -1:
-                return self.departments_data.loc[index][database_params.index], self.departments_data.loc[index][
-                    database_params.description]
+            if not intent:
+                continue
+
+            print 'intent= ', intent
+
+            intent = intent.split('|')
+            for keyword in intent:
+                if intent_name.find(keyword) != -1:
+                    return self.departments_data.loc[index][database_params.index], self.departments_data.loc[index][
+                        database_params.description]
+
+                    # if intent.find(intent_name) != -1:
+                    #     return self.departments_data.loc[index][database_params.index], self.departments_data.loc[index][
+                    #         database_params.description]
 
         # 没有位置正确的位置信息
         return -1, ''

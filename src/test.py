@@ -58,14 +58,9 @@
 # print html_filename
 
 ##################
-# a=' 1.1 '
-# # a=a.strip()
-# a=float(a)
-# print 'a=',a
-import re
+a='1|2|3|4'
 
-a = '¥111,0.1'
+b=a.split('|')
 
-a = re.sub('[^0-9.,]', '', a)
-print a
-print len(a)
+print type(b)
+print b

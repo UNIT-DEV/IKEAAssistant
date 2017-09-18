@@ -14,6 +14,9 @@ index = 'index'
 # 商品名
 goods_name = 'name'
 
+# 商品归类
+goods_category = 'category'
+
 ## 打折
 goods_discount = 'discount'
 

@@ -33,15 +33,39 @@ class IkeaDatabase(object):
     '''
 
     def find_location(self, intent_name):
+        print 'intent_name=', intent_name
         # 返回所有返回值的第一个
-        # return self.location_data[self.location_data.location == intent_name][database_params.index].values[0]
+
+        # 在data.csv中搜索商品名，然后再在location.csv中搜索位置区域信息,最后在department中找到位置描述信息
+        category = ''
+        for index in self.goods_data.index:
+            # print 'goods_data.index=', index
+            name = self.goods_data.loc[index][database_params.goods_name]
+            if name.find(intent_name) != -1:
+                category = self.goods_data.loc[index][database_params.category]
+                break
+        print 'category=', category
+
+        if category:
+            for index in self.location_data.index:
+                location_category = self.location_data.loc[index][database_params.category]
+                print 'category=', category, 'location_category=', location_category
+                if category == location_category:
+                    rst_index = self.location_data.loc[index][database_params.index]
+                    rst_description = self.departments_data.loc[index][
+                        database_params.description]
+                    print 'category_index=', rst_index, 'description=', rst_description
+                    return rst_index, rst_description
+
+                    # 直接在department.csv中搜索区域和intent
         for index in self.departments_data.index:
+            # 使用department关键字进行搜索
             departments = self.departments_data.loc[index][database_params.department]
             if departments.find(intent_name) != -1:
                 return self.departments_data.loc[index][database_params.index], self.departments_data.loc[index][
                     database_params.description]
 
-            # 使用intent匹配
+            # 使用intent关键字进行匹配
             intent = str(self.departments_data.loc[index][database_params.intent])
             if not intent:
                 continue
@@ -53,10 +77,6 @@ class IkeaDatabase(object):
                 if intent_name.find(keyword) != -1:
                     return self.departments_data.loc[index][database_params.index], self.departments_data.loc[index][
                         database_params.description]
-
-                    # if intent.find(intent_name) != -1:
-                    #     return self.departments_data.loc[index][database_params.index], self.departments_data.loc[index][
-                    #         database_params.description]
 
         # 没有位置正确的位置信息
         return -1, ''

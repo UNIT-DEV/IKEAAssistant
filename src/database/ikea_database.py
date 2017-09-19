@@ -49,15 +49,14 @@ class IkeaDatabase(object):
         if category:
             for index in self.location_data.index:
                 location_category = self.location_data.loc[index][database_params.category]
-                print 'category=', category, 'location_category=', location_category
+                # print 'category=', category, 'location_category=', location_category
                 if category == location_category:
                     rst_index = self.location_data.loc[index][database_params.index]
-                    rst_description = self.departments_data.loc[index][
-                        database_params.description]
+                    rst_description = self.departments_data.loc[rst_index - 1][database_params.description]
                     print 'category_index=', rst_index, 'description=', rst_description
                     return rst_index, rst_description
 
-                    # 直接在department.csv中搜索区域和intent
+        # 直接在department.csv中搜索区域和intent
         for index in self.departments_data.index:
             # 使用department关键字进行搜索
             departments = self.departments_data.loc[index][database_params.department]

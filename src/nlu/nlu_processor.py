@@ -24,6 +24,8 @@ class NluProcessor(object):
     '''
 
     def process(self, request):
+        request = request.replace('。', '')
+        print 'query=', request
         # unit 处理
         rst = self.ikea_robot.request(request)
 

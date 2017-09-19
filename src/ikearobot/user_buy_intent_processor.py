@@ -56,7 +56,12 @@ class UserBuyProcessor(object):
         html_file_name = self.html_builder.goods_detial_build(find_rst)
 
         rsp_dict[wechat_msg_params.key_message_type] = wechat_msg_params.val_msg_type_news
-        rsp_dict[wechat_msg_params.key_msg_content_title] = str(goods_filter_content) + u'的' + str(goods_name) + u'详情'
+
+        if goods_filter_content:
+            rsp_dict[wechat_msg_params.key_msg_content_title] = str(goods_filter_content) + u'的' + str(
+                goods_name) + u'详情'
+        else:
+            rsp_dict[wechat_msg_params.key_msg_content_title] = str(goods_name) + u'详情'
         rsp_dict[wechat_msg_params.key_msg_content_description] = u'点击查看商品详情'
         rsp_dict[
             wechat_msg_params.key_msg_content_pciurl] = ikearobot_params.goods_detail_title_pic_url

@@ -156,7 +156,7 @@ class IkeaDatabase(object):
     '''
 
     def find_goods(self, goods_name, goods_filter):
-        print 'filter= ', filter
+        print 'filter= ', goods_filter
 
         if goods_filter == database_params.goods_cheap:
             return self.__find_goods_price(goods_name, goods_filter)

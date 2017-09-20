@@ -16,9 +16,10 @@
 ## 退出命令
   sudo ./stop_wechat_server.sh
 ## 关注微信二维码进行体验(任意一个均可)
-![](./static/github/MyAI_Wechat_QRC.png)
 
 ![](./static/github/Wechat_Pan.png)
+
+![](./static/github/MyAI_Wechat_QRC.png)
 
 ## 演示视频
 <http://v.youku.com/v_show/id_XMzAzNTY1NzYwNA==.html?spm=a2hzp.8244740.0.0#paction>

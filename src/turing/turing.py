@@ -23,13 +23,12 @@ class Turing(object):
         self.info = "info"
         self.url = "http://www.tuling123.com/openapi/api"
 
-    '''
-        图灵接口请求
-            params：请求字符串
-            返回值：字典结果
-    '''
-
     def request(self, params):
+        '''
+            图灵接口请求
+                params：请求字符串
+                返回值：字典结果
+        '''
         data = {self.key: self.key_value, self.info: params}
 
         rsp_dict = {}

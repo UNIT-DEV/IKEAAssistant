@@ -36,28 +36,25 @@ class Intent(object):
         else:
             print '词槽= 空'
 
-    '''
-        获取意图置信度
-            返回值：浮点类型
-    '''
-
     def get_intent_confidence(self):
+        '''
+            获取意图置信度
+                返回值：浮点类型
+        '''
         return self.intent_confidence
 
-    '''
-        获取意图：
-            返回值：意图字符串
-    '''
-
     def get_intent(self):
+        '''
+            获取意图：
+                返回值：意图字符串
+        '''
         return self.current_qu_intent
 
-    '''
-        获取位置的词槽：
-            返回值：location 的索引值（整型）
-    '''
-
     def get_slot_location(self):
+        '''
+            获取位置的词槽：
+                返回值：location 的索引值（整型）
+        '''
         if (self.slots.has_key(baidu_unit_params.slot_user_department)):
             return self.slots[baidu_unit_params.slot_user_department]
         elif (self.slots.has_key(baidu_unit_params.slot_user_intent)):
@@ -65,23 +62,21 @@ class Intent(object):
         else:
             return None
 
-    '''
-        获取商品名的词槽
-            返回值：商品名
-    '''
-
     def get_slot_goods_name(self):
+        '''
+            获取商品名的词槽
+                返回值：商品名
+        '''
         if (self.slots.has_key(baidu_unit_params.slot_user_goods)):
             return self.slots[baidu_unit_params.slot_user_goods]
         else:
             return None
 
-    '''
-        获取商品的过滤条件
-            返回值：过滤条件
-    '''
-
     def get_slot_goods_filter(self):
+        '''
+            获取商品的过滤条件
+                返回值：过滤条件
+        '''
         if (self.slots.has_key(baidu_unit_params.slot_user_cheap)):
             return database_params.goods_cheap, self.slots[baidu_unit_params.slot_user_cheap]
         elif (self.slots.has_key(baidu_unit_params.slot_user_discount)):

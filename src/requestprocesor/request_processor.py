@@ -17,8 +17,10 @@ from wechat.message_utils import MessageUtil
 import request_params
 import global_common_params
 import sys
+
 reload(sys)
 sys.setdefaultencoding('utf8')
+
 
 class RequestProcessor(object):
     '''
@@ -61,16 +63,15 @@ class RequestProcessor(object):
         rsp_xml = self.message_util.gen_xml(nul_process_rst)
         rsp_xml = self.html_parser.unescape(rsp_xml)
 
-        #print(u"%s" % rsp_xml)
+        # print(u"%s" % rsp_xml)
 
         request.write(rsp_xml)
 
-    '''
-        get请求处理
-            req：请求句柄
-    '''
-
     def get_processor(self, req):
+        '''
+            get请求处理
+                req：请求句柄
+        '''
         print 'get request body: '
         print req.request.body
 
@@ -85,12 +86,11 @@ class RequestProcessor(object):
             # global_common_params.current_thread_num -= 1
             # global_common_params.thread_cnt_lock.release()
 
-    '''
-        post请求处理：
-            req：请求句柄
-    '''
-
     def post_processor(self, req):
+        '''
+            post请求处理：
+                req：请求句柄
+        '''
         self.__post(req)
 
         # global_common_params.thread_cnt_lock.acquire()

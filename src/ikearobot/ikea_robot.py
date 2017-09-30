@@ -27,16 +27,16 @@ class IkeaRobot(object):
         self.user_buy_processor = UserBuyProcessor()
         self.user_location_processor = UserLocationProcessor()
 
-    '''
-        ikea请求处理
-            query：http请求句柄
-            返回值：结果字典
-    '''
-
     def request(self, query):
+        '''
+            ikea请求处理
+                query：http请求句柄
+                返回值：结果字典
+        '''
         rsp_dict = {}
 
         unit_rst = self.unit.query_request(self.scene_id, query, "").text
+        print "unit_rst=", u
         bot_intent = Intent(unit_rst)
         if (bot_intent.get_intent_confidence() < self.min_confidence):
             # 使用图灵机器人兜底

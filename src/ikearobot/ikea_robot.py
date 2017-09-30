@@ -36,7 +36,7 @@ class IkeaRobot(object):
         rsp_dict = {}
 
         unit_rst = self.unit.query_request(self.scene_id, query, "").text
-        print "unit_rst=", u
+        print "unit_rst=", unit_rst
         bot_intent = Intent(unit_rst)
         if (bot_intent.get_intent_confidence() < self.min_confidence):
             # 使用图灵机器人兜底

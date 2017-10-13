@@ -17,13 +17,12 @@ class NluProcessor(object):
         自然语言处理
     '''
 
-    '''
-        自然语言处理
-            request：请求句柄
-            返回值：字典结果
-    '''
-
     def process(self, request):
+        '''
+            自然语言处理
+                request：请求句柄
+                返回值：字典结果
+        '''
         request = request.replace('。', '')
         print 'query=', request
         # unit 处理

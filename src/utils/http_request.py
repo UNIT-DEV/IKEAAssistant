@@ -19,18 +19,16 @@ class HttpRequest(object):
         '''
         self.url = params
 
-    '''
-        requests库get请求封装
-            params:请求参数
-    '''
-
     def get(self, params):
+        '''
+            requests库get请求封装
+                params:请求参数
+        '''
         return requests.get(self.url, params=params)
 
-    '''
-        requests库post请求封装
-            params:请求参数
-    '''
-
     def post(self, params):
+        '''
+            requests库post请求封装
+                params:请求参数
+        '''
         return requests.post(self.url, data=params)

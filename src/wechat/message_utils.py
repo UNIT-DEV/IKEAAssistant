@@ -19,13 +19,12 @@ class MessageUtil(object):
         Constructor
         '''
 
-    '''
-        微信请求解析
-            request：微信请求句柄
-            返回信息dict
-    '''
-
     def parse_xml(self, request):
+        '''
+            微信请求解析
+                request：微信请求句柄
+                返回信息dict
+        '''
         xml_content = request.request.body
         root = etree.fromstring(xml_content)
 
@@ -48,13 +47,12 @@ class MessageUtil(object):
 
         return dict
 
-    '''
-        微信返回结果生成
-            dict：返回的微信信息内容
-            返回值：XML格式字符串
-    '''
-
     def gen_xml(self, dict):
+        '''
+            微信返回结果生成
+                dict：返回的微信信息内容
+                返回值：XML格式字符串
+        '''
         root = etree.Element('xml')
 
         to_user_name = etree.SubElement(root, wechat_msg_params.key_to_user_name)

@@ -21,13 +21,12 @@ class UserLocationProcessor(object):
         self.database = IkeaDatabase()
         self.html_builder = HtmlBuilder()
 
-    '''
-        页面url地址生成
-            html_file_name: 文件名
-            返回值：完整的url地址字符串
-    '''
-
     def __build_webpage_get_url(self, html_file_name):
+        '''
+            页面url地址生成
+                html_file_name: 文件名
+                返回值：完整的url地址字符串
+        '''
         rst = ''
         rst += global_common_params.web_server_url
         rst += '?' + request_params.key_req_get_type + '=' + request_params.val_req_get_type_webpage
@@ -35,13 +34,12 @@ class UserLocationProcessor(object):
 
         return rst
 
-    '''
-        位置意图处理
-            intent：百度UNIT返回结果封装
-            返回值：结果字典
-    '''
-
     def process(self, intent):
+        '''
+            位置意图处理
+                intent：百度UNIT返回结果封装
+                返回值：结果字典
+        '''
         rsp_dict = {}
         rsp_dict[wechat_msg_params.key_message_type] = wechat_msg_params.val_msg_type_invalid
 

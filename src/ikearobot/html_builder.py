@@ -18,21 +18,19 @@ class HtmlBuilder(object):
     def __init__(self):
         pass
 
-    '''
-        商品条目生成
-    '''
-
     def __item_build(self, name, link, broad, price):
+        '''
+            商品条目生成
+        '''
         str_price = str(price)
         return '<li class="product-item">' + '<a href=' + link + '>' + name + '\t' + broad + '\t￥' + str_price + '</a >' + '</li>'
 
-    '''
-        商品详情页面生成
-            goods_details:商品详情信息
-            返回值：生成的html页面文件名
-    '''
-
     def goods_detial_build(self, goods_details):
+        '''
+            商品详情页面生成
+                goods_details:商品详情信息
+                返回值：生成的html页面文件名
+        '''
         prefix = '''
                     <!DOCTYPE html>
                         <html>
@@ -65,13 +63,12 @@ class HtmlBuilder(object):
 
         return html_file_name
 
-    '''
-        商品详情页面生成
-            pic_url:位置图片url
-            返回值：生成的html页面文件名
-    '''
-
     def location_build(self, pic_url, description):
+        '''
+            商品详情页面生成
+                pic_url:位置图片url
+                返回值：生成的html页面文件名
+        '''
         prefix = '''
                             <!DOCTYPE html>
                                 <html>
@@ -93,7 +90,7 @@ class HtmlBuilder(object):
         description = '<p style="font-size:32px">' + description + '</p>'
 
         html_content = prefix + img + description + suffix
-        
+
         html_file_name = str(uuid.uuid1()) + '.html'
         f_path = global_common_params.project_root_path + '/htmls/' + html_file_name
         f = open(f_path, 'w')

@@ -9,12 +9,13 @@
 # print rst
 
 #######################
-##百度UNIT接口测试
-# from baiduunit.baidu_unit import BaiduUnit
-# import json
-# unit=BaiduUnit()
-# #
-# # # print unit.get_token()
+# 百度UNIT接口测试
+from baiduunit.baidu_unit import BaiduUnit
+import json
+
+unit = BaiduUnit()
+#
+print 'unit token= ', unit.get_token()
 # #
 # query="洗手间在那儿"
 # rst= unit.query_request(9633, query, "").text
@@ -58,9 +59,9 @@
 # print html_filename
 
 ##################
-a='1|2|3|4'
-
-b=a.split('|')
-
-print type(b)
-print b
+# a='1|2|3|4'
+#
+# b=a.split('|')
+#
+# print type(b)
+# print b

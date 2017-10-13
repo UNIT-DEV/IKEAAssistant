@@ -26,17 +26,16 @@ class BaiduUnit(object):
         self.key_client_secret = "client_secret"
         self.val_client_secret = "kZiWVLLjkXo3DOSB8nEglsjgmmyaLFOr"
 
-        # token(15th-July-2017)
-        self.val_token = "24.0c9dffb5de11b566e5c7e176d0d0faae.2592000.1506695263.282335-10028417"
+        # token(30th-September-2017)
+        self.val_token = "24.e79e25f689fabcc17f3ed51cac325407.2592000.1509334723.282335-10028417"
 
         self.unit_requet = HttpRequest(
             "https://aip.baidubce.com/rpc/2.0/solution/v1/unit_utterance?access_token=" + self.val_token)
 
-    '''
-        获取临时token
-    '''
-
     def get_token(self):
+        '''
+            获取临时token
+        '''
         data = {self.key_grant_type: self.val_grant_type, \
                 self.key_client_id: self.val_client_id, \
                 self.key_client_secret: self.val_client_secret}
@@ -47,15 +46,14 @@ class BaiduUnit(object):
         else:
             return None
 
-    '''
+    def query_request(self, scene_id, query, session_id):
+        '''
             用户query请求
                 scene_id：场景ID
                 query：用户query
                 session_id：session ID
                 返回值：UNIT返回结果
-    '''
-
-    def query_request(self, scene_id, query, session_id):
+        '''
         data = {"scene_id": scene_id, \
                 "query": query, \
                 "session_id": session_id}

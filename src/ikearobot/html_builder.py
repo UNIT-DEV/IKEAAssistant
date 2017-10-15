@@ -8,6 +8,7 @@ Created on 2017/9/9 下午5:24
 from database import database_params
 import global_common_params
 import uuid
+import re
 
 
 class HtmlBuilder(object):
@@ -23,6 +24,8 @@ class HtmlBuilder(object):
             商品条目生成
         '''
         str_price = str(price)
+        str_price = re.sub('[^0-9.,]', '', str_price)
+
         return '<li class="product-item">' + '<a href=' + link + '>' + name + '\t' + broad + '\t￥' + str_price + '</a >' + '</li>'
 
     def goods_detial_build(self, goods_details):

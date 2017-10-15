@@ -13,9 +13,9 @@
 from baiduunit.baidu_unit import BaiduUnit
 import json
 
-unit = BaiduUnit()
-#
-print 'unit token= ', unit.get_token()
+# unit = BaiduUnit()
+# #
+# print 'unit token= ', unit.get_token()
 # #
 # query="洗手间在那儿"
 # rst= unit.query_request(9633, query, "").text
@@ -59,9 +59,14 @@ print 'unit token= ', unit.get_token()
 # print html_filename
 
 ##################
-# a='1|2|3|4'
-#
-# b=a.split('|')
-#
-# print type(b)
-# print b
+my_list=[]
+my_dict1={1:1,2:2}
+my_list.append(my_dict1)
+print my_list
+
+my_dict2={1:1,2:2}
+
+if my_dict2 in my_list:
+    print 'In'
+else:
+    print 'Not'

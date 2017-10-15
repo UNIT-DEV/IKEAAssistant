@@ -102,6 +102,7 @@ class IkeaDatabase(object):
 
                 item = {}
                 item[database_params.goods_name] = row[database_params.goods_name]
+                item[database_params.goods_img] = row[database_params.goods_img]
                 item[database_params.goods_link] = row[database_params.goods_link]
                 item[database_params.goods_broad] = row[database_params.goods_broad]
                 item[database_params.goods_price] = row[database_params.goods_price]
@@ -122,6 +123,7 @@ class IkeaDatabase(object):
             if (row[database_params.goods_name].find(goods_name) != -1):
                 item = {}
                 item[database_params.goods_name] = row[database_params.goods_name]
+                item[database_params.goods_img] = row[database_params.goods_img]
                 item[database_params.goods_link] = row[database_params.goods_link]
                 item[database_params.goods_broad] = row[database_params.goods_broad]
 

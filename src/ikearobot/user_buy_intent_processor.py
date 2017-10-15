@@ -10,6 +10,7 @@ from wechat import wechat_msg_params
 from database.ikea_database import IkeaDatabase
 import global_common_params
 from requestprocesor import request_params
+import database.database_params
 
 
 class UserBuyProcessor(object):
@@ -50,6 +51,9 @@ class UserBuyProcessor(object):
         goods_filter_type, goods_filter_content = intent.get_slot_goods_filter()
 
         find_rst = self.database.find_goods(goods_name, goods_filter_type)
+        # 数据库中没有符合查询条件的商品
+        if not find_rst:
+            return rsp_dict
 
         html_file_name = self.html_builder.goods_detial_build(find_rst)
 
@@ -60,9 +64,19 @@ class UserBuyProcessor(object):
                 goods_name) + u'详情'
         else:
             rsp_dict[wechat_msg_params.key_msg_content_title] = str(goods_name) + u'详情'
+
         rsp_dict[wechat_msg_params.key_msg_content_description] = u'点击查看商品详情'
-        rsp_dict[
-            wechat_msg_params.key_msg_content_pciurl] = ikearobot_params.goods_detail_title_pic_url
+        # rsp_dict[wechat_msg_params.key_msg_content_pciurl] = ikearobot_params.goods_detail_title_pic_url
+
+        # 挑选商品详情title图片
+        for item in find_rst:
+            rst_goods_name = str(item[database.database_params.goods_name])
+            if rst_goods_name.endswith(goods_name):
+                rsp_dict[wechat_msg_params.key_msg_content_pciurl] = item[database.database_params.goods_img]
+                break
+            else:
+                rsp_dict[wechat_msg_params.key_msg_content_pciurl] = find_rst[0][database.database_params.goods_img]
+
         rsp_dict[wechat_msg_params.key_msg_content_url] = self.__build_webpage_get_url(html_file_name)
 
         return rsp_dict

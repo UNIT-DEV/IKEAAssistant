@@ -102,10 +102,12 @@ class IkeaDatabase(object):
 
                 item = {}
                 item[database_params.goods_name] = row[database_params.goods_name]
+                item[database_params.goods_img] = row[database_params.goods_img]
                 item[database_params.goods_link] = row[database_params.goods_link]
                 item[database_params.goods_broad] = row[database_params.goods_broad]
                 item[database_params.goods_price] = row[database_params.goods_price]
-                rst.append(item)
+                if item not in rst:
+                    rst.append(item)
         return rst
 
     def __find_goods_price(self, goods_name, goods_filter):
@@ -121,6 +123,7 @@ class IkeaDatabase(object):
             if (row[database_params.goods_name].find(goods_name) != -1):
                 item = {}
                 item[database_params.goods_name] = row[database_params.goods_name]
+                item[database_params.goods_img] = row[database_params.goods_img]
                 item[database_params.goods_link] = row[database_params.goods_link]
                 item[database_params.goods_broad] = row[database_params.goods_broad]
 
@@ -138,7 +141,8 @@ class IkeaDatabase(object):
 
                 price_float = float(price)
                 item[database_params.goods_price] = price_float
-                rst.append(item)
+                if item not in rst:
+                    rst.append(item)
 
         rst.sort(key=lambda obj: obj.get(database_params.goods_cheap), reverse=False)
 

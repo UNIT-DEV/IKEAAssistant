@@ -92,12 +92,12 @@ class IkeaDatabase(object):
             if (row[database_params.goods_name].find(goods_name) != -1):
                 # 商品是否为最新的
                 if goods_filter == database_params.goods_newest:
-                    if row[database_params.goods_newest] == 'False':
+                    if str(row[database_params.goods_newest]).strip() == 'False':
                         continue
 
                 # 商品是否为打折的
                 if goods_filter == database_params.goods_discount:
-                    if row[database_params.goods_discount] == 'False':
+                    if str(row[database_params.goods_discount]).strip() == 'False':
                         continue
 
                 item = {}

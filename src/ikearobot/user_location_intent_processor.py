@@ -47,12 +47,16 @@ class UserLocationProcessor(object):
 
         # slot中没有位置信息
         if location is None:
+            rsp_dict[wechat_msg_params.key_message_type] = wechat_msg_params.val_msg_type_text
+            rsp_dict[wechat_msg_params.key_content] = u'抱歉，没有找到您需要查找的位置~'
             return rsp_dict
 
         index, description = self.database.find_location(location)
 
         # 位置信息无效
         if (index <= 0):
+            rsp_dict[wechat_msg_params.key_message_type] = wechat_msg_params.val_msg_type_text
+            rsp_dict[wechat_msg_params.key_content] = u'抱歉，没有找到您需要查找的位置~'
             return rsp_dict
 
         html_file_name = self.html_builder.location_build(ikearobot_params.pic_resource_dict[index], description)

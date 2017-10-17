@@ -47,12 +47,16 @@ class UserBuyProcessor(object):
         goods_name = intent.get_slot_goods_name()
         # unit中没有商品名的slog
         if goods_name is None:
+            rsp_dict[wechat_msg_params.key_message_type] = wechat_msg_params.val_msg_type_text
+            rsp_dict[wechat_msg_params.key_content] = u'抱歉，没有找到您需要查找的商品~'
             return rsp_dict
         goods_filter_type, goods_filter_content = intent.get_slot_goods_filter()
 
         find_rst = self.database.find_goods(goods_name, goods_filter_type)
         # 数据库中没有符合查询条件的商品
         if not find_rst:
+            rsp_dict[wechat_msg_params.key_message_type] = wechat_msg_params.val_msg_type_text
+            rsp_dict[wechat_msg_params.key_content] = u'抱歉，没有找到您需要查找的商品~'
             return rsp_dict
 
         html_file_name = self.html_builder.goods_detial_build(find_rst)

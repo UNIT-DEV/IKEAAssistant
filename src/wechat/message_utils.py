@@ -4,10 +4,13 @@ Created on 2017年8月20日
 
 @author: liucaiquan
 '''
+import logging
 from lxml import etree
 
 from wechat import wechat_msg_params
+import global_common_params
 
+logging.basicConfig(level=global_common_params.LOGGER_LEVEL)
 
 class MessageUtil(object):
     '''
@@ -68,15 +71,18 @@ class MessageUtil(object):
         message_type.text = '<![CDATA[' + dict[wechat_msg_params.key_message_type] + ']]>'
 
         # 回复内容为文本
-        print 'dict[common_params.key_rsp_msg_type]'
-        print dict[wechat_msg_params.key_message_type]
+        # print 'dict[common_params.key_rsp_msg_type]'
+        # print dict[wechat_msg_params.key_message_type]
+        logging.info('dict[common_params.key_rsp_msg_type]= {}'.format(dict[wechat_msg_params.key_message_type]))
         if (dict[wechat_msg_params.key_message_type] == wechat_msg_params.val_msg_type_text):
-            print '回复内容为文本'
+            # print '回复内容为文本'
+            logging.info('回复内容为文本')
             content = etree.SubElement(root, wechat_msg_params.key_content)
             content.text = '<![CDATA[' + dict[wechat_msg_params.key_content] + ']]>'
         else:
             # 回复内容为news
-            print '回复内容为news'
+            # print '回复内容为news'
+            logging.info('回复内容为news')
             article_count = etree.SubElement(root, wechat_msg_params.key_msg_article_count)
             article_count.text = '1'
 

@@ -4,7 +4,7 @@ Created on 2017年8月30日
 
 @author: liucaiquan
 '''
-
+import logging
 from baiduunit.baidu_unit import BaiduUnit
 from intent import Intent
 import json
@@ -12,6 +12,10 @@ from database.ikea_database import IkeaDatabase
 from wechat import wechat_msg_params
 from user_buy_intent_processor import UserBuyProcessor
 from user_location_intent_processor import UserLocationProcessor
+
+import global_common_params
+
+logging.basicConfig(level=global_common_params.LOGGER_LEVEL)
 
 
 class IkeaRobot(object):
@@ -36,7 +40,9 @@ class IkeaRobot(object):
         rsp_dict = {}
 
         unit_rst = self.unit.query_request(self.scene_id, query, "").text
-        print "unit_rst=", unit_rst
+        # print "unit_rst=", unit_rst
+        logging.info('unit_rst= {}'.format(unit_rst))
+
         bot_intent = Intent(unit_rst)
         if (bot_intent.get_intent_confidence() < self.min_confidence):
             # 使用图灵机器人兜底

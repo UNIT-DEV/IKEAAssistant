@@ -5,6 +5,11 @@ Created on 2017/9/5 上午11:06
 @author: liucaiquan
 '''
 import threading
+import logging
+
+# logger打印等级
+# LOGGER_LEVEL = logging.INFO
+LOGGER_LEVEL=logging.ERROR
 
 # 工程根目录位置
 project_root_path = '/opt/IKEAAssistant'

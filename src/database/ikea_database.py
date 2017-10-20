@@ -5,9 +5,12 @@ Created on 2017/9/3 下午11:08
 @author: liucaiquan
 '''
 import pandas as pd
-import global_common_params
-import database_params
 import re
+import logging
+import global_common_params
+import database.database_params as database_params
+
+logging.basicConfig(level=global_common_params.LOGGER_LEVEL)
 
 
 class IkeaDatabase(object):
@@ -32,7 +35,8 @@ class IkeaDatabase(object):
                 intent_name:位置/意图名字
                 返回值：位置索引值（整型）和位置的描述信息
         '''
-        print 'intent_name=', intent_name
+        # print 'intent_name=', intent_name
+        logging.info('intent_name={}'.format(intent_name))
         # 返回所有返回值的第一个
 
         # 在data.csv中搜索商品名，然后再在location.csv中搜索位置区域信息,最后在department中找到位置描述信息
@@ -43,7 +47,8 @@ class IkeaDatabase(object):
             if name.find(intent_name) != -1:
                 category = self.goods_data.loc[index][database_params.category]
                 break
-        print 'category=', category
+        # print 'category=', category
+        logging.info('category='.format(category))
 
         if category:
             for index in self.location_data.index:
@@ -52,7 +57,8 @@ class IkeaDatabase(object):
                 if category == location_category:
                     rst_index = self.location_data.loc[index][database_params.index]
                     rst_description = self.departments_data.loc[rst_index - 1][database_params.description]
-                    print 'category_index=', rst_index, 'description=', rst_description
+                    # print 'category_index=', rst_index, 'description=', rst_description
+                    logging.info('category_index={} description={}'.format(rst_index, rst_description))
                     return rst_index, rst_description
 
         # 直接在department.csv中搜索区域和intent
@@ -68,7 +74,8 @@ class IkeaDatabase(object):
             if not intent:
                 continue
 
-            print 'intent= ', intent
+            # print 'intent= ', intent
+            logging.info('intent= {}'.format(intent))
 
             intent = intent.split('|')
             for keyword in intent:
@@ -155,7 +162,8 @@ class IkeaDatabase(object):
                 filter：商品过滤条件
                 返回值：符合条件的商品信息（list）
         '''
-        print 'filter= ', goods_filter
+        # print 'filter= ', goods_filter
+        logging.info('filter= {}'.format(goods_filter))
 
         if goods_filter == database_params.goods_cheap:
             return self.__find_goods_price(goods_name, goods_filter)

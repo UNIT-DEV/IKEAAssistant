@@ -9,6 +9,7 @@ Created on 2017年8月19日
     转发微信后台请求（后续添加线程池机制）
     请求结果封装成微信后台规范的数据结果返回给微信后台
 '''
+import logging
 import HTMLParser
 import threading
 from nlu.nlu_processor import NluProcessor
@@ -18,9 +19,12 @@ import request_params
 import global_common_params
 import sys
 
+import global_common_params
+
 reload(sys)
 sys.setdefaultencoding('utf8')
 
+logging.basicConfig(level=global_common_params.LOGGER_LEVEL)
 
 class RequestProcessor(object):
     '''
@@ -36,8 +40,6 @@ class RequestProcessor(object):
             requst.write("this is MyWeChatService!")
 
     def __post(self, request):
-        print request.request.body
-
         # 微信请求数据解析
         req_dict = self.message_util.parse_xml(request)
 
@@ -54,9 +56,7 @@ class RequestProcessor(object):
         nul_process_rst[wechat_msg_params.key_to_user_name] = req_dict[wechat_msg_params.key_from_user_name]
         nul_process_rst[wechat_msg_params.key_from_user_name] = req_dict[wechat_msg_params.key_to_user_name]
         msg_time = long(req_dict[wechat_msg_params.key_create_time])
-        print 'before, msg_time= ' + str(msg_time)
         msg_time = msg_time + 3
-        print 'after, msg_time= ' + str(msg_time)
         nul_process_rst[wechat_msg_params.key_create_time] = str(msg_time)
 
         # 微信返回数据封装
@@ -72,8 +72,9 @@ class RequestProcessor(object):
             get请求处理
                 req：请求句柄
         '''
-        print 'get request body: '
-        print req.request.body
+        # print 'get request body: '
+        # print req.request.body
+        logging.info('\n\n**********\n[wechat] get request body:\n{}'.format(req.request.body))
 
         # 'echostr'字段用于微信后台服务的配置绑定
         echo_str = req.get_argument('echostr', default='_ARG_DEFAULT')
@@ -91,6 +92,10 @@ class RequestProcessor(object):
             post请求处理：
                 req：请求句柄
         '''
+        # print 'post request body: '
+        # print req.request.body
+        logging.info('\n\n*********\n[wechat] post request body:\n{}'.format(req.request.body))
+
         self.__post(req)
 
         # global_common_params.thread_cnt_lock.acquire()

@@ -34,8 +34,8 @@ class Turing(object):
         rsp_dict = {}
         rsp_dict[wechat_msg_params.key_message_type] = wechat_msg_params.val_msg_type_text
         turing_request_rst = json.loads(requests.post(self.url, data=json.dumps(data)).text)
-        print 'type(turing_request_rst): '
-        print type(turing_request_rst)
+        # print 'type(turing_request_rst): '
+        # print type(turing_request_rst)
         rsp_dict[wechat_msg_params.key_content] = turing_request_rst['text']
 
         return rsp_dict

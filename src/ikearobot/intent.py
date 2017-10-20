@@ -5,9 +5,13 @@ Created on 2017/9/3 下午2:05
 @author: liucaiquan
 '''
 import json
+import logging
 from baiduunit import baidu_unit_params
 from database import database_params
 
+import global_common_params
+
+logging.basicConfig(level=global_common_params.LOGGER_LEVEL)
 
 class Intent(object):
     '''
@@ -18,13 +22,16 @@ class Intent(object):
         json_object = json.loads(query)
         result = json_object['result']
         schema = result['schema']
-        print '百度UNIT解析结果：'
+        # print '百度UNIT解析结果：'
+        logging.info(u'百度UNIT解析结果：')
         # 置信度
         self.intent_confidence = schema['intent_confidence']
-        print '置信度=' + str(self.intent_confidence)
+        # print '置信度=' + str(self.intent_confidence)
+        logging.info(u'置信度= {}'.format(str(self.intent_confidence)))
         # 意图
         self.current_qu_intent = schema['current_qu_intent']
-        print '意图=' + str(self.current_qu_intent)
+        # print '意图=' + str(self.current_qu_intent)
+        logging.info(u'意图= {}'.format(str(self.current_qu_intent)))
         # 词槽
         bot_merged_slots = schema['bot_merged_slots']
         self.slots = {}
@@ -32,9 +39,11 @@ class Intent(object):
             print 'bot_merged_slots= ' + str(bot_merged_slots)
             for bot_slot in bot_merged_slots:
                 self.slots[bot_slot['type']] = bot_slot['original_word']
-                print '词槽=' + str(self.slots[bot_slot['type']])
+                # print '词槽=' + str(self.slots[bot_slot['type']])
+                logging.info(u'词槽= {}'.format(str(self.slots[bot_slot['type']])))
         else:
-            print '词槽= 空'
+            # print '词槽= 空'
+            logging.info(u'词槽= 空')
 
     def get_intent_confidence(self):
         '''

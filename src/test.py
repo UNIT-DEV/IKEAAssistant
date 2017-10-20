@@ -59,14 +59,8 @@ import json
 # print html_filename
 
 ##################
-my_list=[]
-my_dict1={1:1,2:2}
-my_list.append(my_dict1)
-print my_list
+import logging
+logging.basicConfig(level=logging.INFO)
 
-my_dict2={1:1,2:2}
-
-if my_dict2 in my_list:
-    print 'In'
-else:
-    print 'Not'
+logger=logging.getLogger(__file__)
+logger.info('hi {},{}'.format('Eddy', 'Cissy'))

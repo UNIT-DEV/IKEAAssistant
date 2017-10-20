@@ -9,22 +9,23 @@ Created on 2017年8月19日
     转发微信后台请求（后续添加线程池机制）
     请求结果封装成微信后台规范的数据结果返回给微信后台
 '''
+import sys
 import logging
 import HTMLParser
 import threading
-from nlu.nlu_processor import NluProcessor
-from wechat import wechat_msg_params
-from wechat.message_utils import MessageUtil
-import request_params
-import global_common_params
-import sys
 
+import wechat.wechat_msg_params as wechat_msg_params
+import requestprocesor.request_params as request_params
 import global_common_params
+
+from nlu.nlu_processor import NluProcessor
+from wechat.message_utils import MessageUtil
 
 reload(sys)
 sys.setdefaultencoding('utf8')
 
 logging.basicConfig(level=global_common_params.LOGGER_LEVEL)
+
 
 class RequestProcessor(object):
     '''
@@ -32,10 +33,10 @@ class RequestProcessor(object):
     '''
 
     def __get(self, requst):
-        req_type = requst.get_argument(request_params.key_req_get_type, default='_ARG_DEFAULT')
-        req_html_file_name = requst.get_argument(request_params.key_req_get_html_file_name, default='_ARG_DEFAULT')
-        if (req_type == request_params.val_req_get_type_webpage):
-            requst.render(global_common_params.project_root_path + '/htmls/' + req_html_file_name)
+        req_type = requst.get_argument(request_params.KEY_REQ_GET_TYPE, default='_ARG_DEFAULT')
+        req_html_file_name = requst.get_argument(request_params.KEY_REQ_GET_HTML_FILE_NAME, default='_ARG_DEFAULT')
+        if (req_type == request_params.VAL_REQ_GET_TYPE_WEBPAGE):
+            requst.render(global_common_params.PROJECT_ROOT_PATH + '/htmls/' + req_html_file_name)
         else:
             requst.write("this is MyWeChatService!")
 
@@ -45,19 +46,19 @@ class RequestProcessor(object):
 
         # 获取请求文本（语音会转成文本）
         query = ''
-        if (req_dict[wechat_msg_params.key_message_type] == wechat_msg_params.val_msg_type_text):
-            query = req_dict[wechat_msg_params.key_content]
-        elif (req_dict[wechat_msg_params.key_message_type] == wechat_msg_params.val_msg_type_voice):
-            query = req_dict[wechat_msg_params.key_recognition]
+        if (req_dict[wechat_msg_params.KEY_MESSAGE_TYPE] == wechat_msg_params.VAL_MSG_TYPE_TEXT):
+            query = req_dict[wechat_msg_params.KEY_CONTENT]
+        elif (req_dict[wechat_msg_params.KEY_MESSAGE_TYPE] == wechat_msg_params.VAL_MSG_TYPE_VOICE):
+            query = req_dict[wechat_msg_params.KEY_RECOGNITION]
 
         # 微信请求处理(核心处理步骤)
         nul_process_rst = self.nul_processor.process(query)
 
-        nul_process_rst[wechat_msg_params.key_to_user_name] = req_dict[wechat_msg_params.key_from_user_name]
-        nul_process_rst[wechat_msg_params.key_from_user_name] = req_dict[wechat_msg_params.key_to_user_name]
-        msg_time = long(req_dict[wechat_msg_params.key_create_time])
+        nul_process_rst[wechat_msg_params.KEY_TO_USER_NAME] = req_dict[wechat_msg_params.KEY_FROM_USER_NAME]
+        nul_process_rst[wechat_msg_params.KEY_FROM_USER_NAME] = req_dict[wechat_msg_params.KEY_TO_USER_NAME]
+        msg_time = long(req_dict[wechat_msg_params.KEY_CREATE_TIME])
         msg_time = msg_time + 3
-        nul_process_rst[wechat_msg_params.key_create_time] = str(msg_time)
+        nul_process_rst[wechat_msg_params.KEY_CREATE_TIME] = str(msg_time)
 
         # 微信返回数据封装
         rsp_xml = self.message_util.gen_xml(nul_process_rst)

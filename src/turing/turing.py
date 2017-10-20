@@ -6,7 +6,7 @@ Created on 2017年3月7日
 '''
 import requests
 import json
-from wechat import wechat_msg_params
+import wechat.wechat_msg_params as wechat_msg_params
 
 
 class Turing(object):
@@ -32,10 +32,10 @@ class Turing(object):
         data = {self.key: self.key_value, self.info: params}
 
         rsp_dict = {}
-        rsp_dict[wechat_msg_params.key_message_type] = wechat_msg_params.val_msg_type_text
+        rsp_dict[wechat_msg_params.KEY_MESSAGE_TYPE] = wechat_msg_params.VAL_MSG_TYPE_TEXT
         turing_request_rst = json.loads(requests.post(self.url, data=json.dumps(data)).text)
         # print 'type(turing_request_rst): '
         # print type(turing_request_rst)
-        rsp_dict[wechat_msg_params.key_content] = turing_request_rst['text']
+        rsp_dict[wechat_msg_params.KEY_CONTENT] = turing_request_rst['text']
 
         return rsp_dict

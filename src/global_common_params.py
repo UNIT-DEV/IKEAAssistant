@@ -12,21 +12,21 @@ import logging
 LOGGER_LEVEL=logging.ERROR
 
 # 工程根目录位置
-project_root_path = '/opt/IKEAAssistant'
+PROJECT_ROOT_PATH = '/opt/IKEAAssistant'
 # project_root_path = '..'
 
 # webserver端口
-server_port = 80
+SERVER_PORT = 80
 
 # webserver地址
 # web_server_url='http://120.25.220.14'
-web_server_url = 'http://www.eddy2017.com'
+WEB_SERVER_URL = 'http://www.eddy2017.com'
 
 # 最大并发线程数目(超过最大并发数，请求丢弃)
-max_concurrent_thread_num = 10
+MAX_CONCURRENT_THREAD_NUM = 10
 # 当前线程池中线程数目
-current_thread_num = 0
+CURRENT_THREAD_NUM = 0
 # http请求锁
-request_lock = threading.Lock()
+REQUEST_LOCK = threading.Lock()
 # 线程计数器锁
-thread_cnt_lock = threading.Lock()
+THREAD_CNT_LOCK = threading.Lock()

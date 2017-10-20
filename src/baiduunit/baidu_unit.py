@@ -4,8 +4,9 @@ Created on 2017年7月15日
 
 @author: Administrator
 '''
-from utils.http_request import HttpRequest
 import json
+
+from utils.http_request import HttpRequest
 
 
 class BaiduUnit(object):

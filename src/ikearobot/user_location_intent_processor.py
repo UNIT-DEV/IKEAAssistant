@@ -4,12 +4,13 @@ Created on 2017/9/9 下午3:18
 
 @author: liucaiquan
 '''
-from wechat import wechat_msg_params
-from database.ikea_database import IkeaDatabase
-import ikearobot_params
-from html_builder import HtmlBuilder
+import wechat.wechat_msg_params as wechat_msg_params
+import ikearobot.ikearobot_params as ikearobot_params
+import requestprocesor.request_params as request_params
 import global_common_params
-from requestprocesor import request_params
+
+from database.ikea_database import IkeaDatabase
+from ikearobot.html_builder import HtmlBuilder
 
 
 class UserLocationProcessor(object):

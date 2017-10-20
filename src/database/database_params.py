@@ -6,40 +6,40 @@ Created on 2017/9/9 下午4:31
 '''
 # locations.csv
 # 区域名
-category = 'category'
+CATEGORY = 'category'
 # 位置
-index = 'index'
+INDEX = 'index'
 
 # data.csv
 # 商品名
-goods_name = 'name'
+GOODS_NAME = 'name'
 
 # 商品图片
-goods_img = 'img'
+GOODS_IMG = 'img'
 
 # 商品归类
-goods_category = 'category'
+GOODS_CATEGORYg = 'category'
 
 ## 打折
-goods_discount = 'discount'
+GOODS_DISCOUNT = 'discount'
 
 ## 最新
-goods_newest = 'new'
+GOODS_NEWEST = 'new'
 
 ## 最便宜
-goods_cheap = 'price'
+GOODS_CHEAP = 'price'
 
 ## url
-goods_link = 'link'
+GOODS_LINK = 'link'
 
 ## 品牌
-goods_broad = 'broad'
+GOODS_BROAD = 'broad'
 
 ## 价格
-goods_price = 'price'
+GOODS_PRICE = 'price'
 
 # departments.csv
-department = 'department'
-index = 'index'
-description = 'description'
-intent = 'intent'
+DEPARTMENT = 'department'
+INDEX = 'index'
+DESCRIPTION = 'description'
+INTENT = 'intent'

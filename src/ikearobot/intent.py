@@ -6,12 +6,12 @@ Created on 2017/9/3 下午2:05
 '''
 import json
 import logging
-from baiduunit import baidu_unit_params
-from database import database_params
-
+import baiduunit.baidu_unit_params as baidu_unit_params
+import database.database_params as database_params
 import global_common_params
 
 logging.basicConfig(level=global_common_params.LOGGER_LEVEL)
+
 
 class Intent(object):
     '''
@@ -36,7 +36,8 @@ class Intent(object):
         bot_merged_slots = schema['bot_merged_slots']
         self.slots = {}
         if bot_merged_slots:
-            print 'bot_merged_slots= ' + str(bot_merged_slots)
+            # print 'bot_merged_slots= ' + str(bot_merged_slots)
+            logging.info('bot_merged_slots= {}'.format(str(bot_merged_slots)))
             for bot_slot in bot_merged_slots:
                 self.slots[bot_slot['type']] = bot_slot['original_word']
                 # print '词槽=' + str(self.slots[bot_slot['type']])
@@ -64,10 +65,10 @@ class Intent(object):
             获取位置的词槽：
                 返回值：location 的索引值（整型）
         '''
-        if (self.slots.has_key(baidu_unit_params.slot_user_department)):
-            return self.slots[baidu_unit_params.slot_user_department]
-        elif (self.slots.has_key(baidu_unit_params.slot_user_intent)):
-            return self.slots[baidu_unit_params.slot_user_intent]
+        if (self.slots.has_key(baidu_unit_params.SLOT_USER_DEPARTMENT)):
+            return self.slots[baidu_unit_params.SLOT_USER_DEPARTMENT]
+        elif (self.slots.has_key(baidu_unit_params.SLOT_USER_INTENT)):
+            return self.slots[baidu_unit_params.SLOT_USER_INTENT]
         else:
             return None
 
@@ -76,8 +77,8 @@ class Intent(object):
             获取商品名的词槽
                 返回值：商品名
         '''
-        if (self.slots.has_key(baidu_unit_params.slot_user_goods)):
-            return self.slots[baidu_unit_params.slot_user_goods]
+        if (self.slots.has_key(baidu_unit_params.SLOT_USER_GOODS)):
+            return self.slots[baidu_unit_params.SLOT_USER_GOODS]
         else:
             return None
 
@@ -86,11 +87,11 @@ class Intent(object):
             获取商品的过滤条件
                 返回值：过滤条件
         '''
-        if (self.slots.has_key(baidu_unit_params.slot_user_cheap)):
-            return database_params.goods_cheap, self.slots[baidu_unit_params.slot_user_cheap]
-        elif (self.slots.has_key(baidu_unit_params.slot_user_discount)):
-            return database_params.goods_discount, self.slots[baidu_unit_params.slot_user_discount]
-        elif (self.slots.has_key(baidu_unit_params.slot_user_new)):
-            return database_params.goods_newest, self.slots[baidu_unit_params.slot_user_new]
+        if (self.slots.has_key(baidu_unit_params.SLOT_USER_CHEAP)):
+            return database_params.GOODS_CHEAP, self.slots[baidu_unit_params.SLOT_USER_CHEAP]
+        elif (self.slots.has_key(baidu_unit_params.SLOT_USER_DISCOUNT)):
+            return database_params.GOODS_DISCOUNT, self.slots[baidu_unit_params.SLOT_USER_DISCOUNT]
+        elif (self.slots.has_key(baidu_unit_params.SLOT_USER_NEW)):
+            return database_params.GOODS_NEWEST, self.slots[baidu_unit_params.SLOT_USER_NEW]
         else:
             return '', ''

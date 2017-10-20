@@ -5,10 +5,10 @@ Created on 2017/9/9 下午5:24
 @author: liucaiquan
 '''
 
-from database import database_params
-import global_common_params
 import uuid
 import re
+import database.database_params as database_params
+import global_common_params
 
 
 class HtmlBuilder(object):
@@ -53,13 +53,13 @@ class HtmlBuilder(object):
 
         goods_items = ''
         for item in goods_details:
-            goods_items += self.__item_build(item[database_params.goods_name], item[database_params.goods_link],
-                                             item[database_params.goods_broad], item[database_params.goods_price])
+            goods_items += self.__item_build(item[database_params.GOODS_NAME], item[database_params.GOODS_LINK],
+                                             item[database_params.GOODS_BROAD], item[database_params.GOODS_PRICE])
 
         html_content = prefix + goods_items + suffix
 
         html_file_name = str(uuid.uuid1()) + '.html'
-        f_path = global_common_params.project_root_path + '/htmls/' + html_file_name
+        f_path = global_common_params.PROJECT_ROOT_PATH + '/htmls/' + html_file_name
         f = open(f_path, 'w')
         f.write(html_content)
         f.close()
@@ -95,7 +95,7 @@ class HtmlBuilder(object):
         html_content = prefix + img + description + suffix
 
         html_file_name = str(uuid.uuid1()) + '.html'
-        f_path = global_common_params.project_root_path + '/htmls/' + html_file_name
+        f_path = global_common_params.PROJECT_ROOT_PATH + '/htmls/' + html_file_name
         f = open(f_path, 'w')
         f.write(html_content)
         f.close()

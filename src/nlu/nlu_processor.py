@@ -8,12 +8,14 @@ Created on 2017年8月30日
     通过unit平台进行数据处理，使用turing进行兜底处理
 '''
 import logging
-from turing.turing import Turing
-from ikearobot.ikea_robot import IkeaRobot
-from wechat import wechat_msg_params
+import wechat.wechat_msg_params as wechat_msg_params
 import global_common_params
 
+from turing.turing import Turing
+from ikearobot.ikea_robot import IkeaRobot
+
 logging.basicConfig(level=global_common_params.LOGGER_LEVEL)
+
 
 class NluProcessor(object):
     '''
@@ -32,7 +34,7 @@ class NluProcessor(object):
         # unit 处理
         rst = self.ikea_robot.request(request)
 
-        if (rst[wechat_msg_params.key_message_type] == wechat_msg_params.val_msg_type_invalid):
+        if (rst[wechat_msg_params.KEY_MESSAGE_TYPE] == wechat_msg_params.VAL_MSG_TYPE_INVALID):
             # turing兜底
             return self.turing.request(request)
         else:

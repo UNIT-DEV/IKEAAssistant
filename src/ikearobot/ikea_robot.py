@@ -5,15 +5,14 @@ Created on 2017年8月30日
 @author: liucaiquan
 '''
 import logging
-from baiduunit.baidu_unit import BaiduUnit
-from intent import Intent
-import json
-from database.ikea_database import IkeaDatabase
-from wechat import wechat_msg_params
-from user_buy_intent_processor import UserBuyProcessor
-from user_location_intent_processor import UserLocationProcessor
-
 import global_common_params
+import wechat.wechat_msg_params as wechat_msg_params
+
+from database.ikea_database import IkeaDatabase
+from user_buy_intent_processor import UserBuyProcessor
+from baiduunit.baidu_unit import BaiduUnit
+from ikearobot.user_location_intent_processor import UserLocationProcessor
+from ikearobot.intent import Intent
 
 logging.basicConfig(level=global_common_params.LOGGER_LEVEL)
 
@@ -46,7 +45,7 @@ class IkeaRobot(object):
         bot_intent = Intent(unit_rst)
         if (bot_intent.get_intent_confidence() < self.min_confidence):
             # 使用图灵机器人兜底
-            rsp_dict[wechat_msg_params.key_message_type] = wechat_msg_params.val_msg_type_invalid
+            rsp_dict[wechat_msg_params.KEY_MESSAGE_TYPE] = wechat_msg_params.VAL_MSG_TYPE_INVALID
         else:
             query_intent = bot_intent.get_intent()
 
@@ -56,6 +55,6 @@ class IkeaRobot(object):
                 return self.user_buy_processor.process(bot_intent)
             else:
                 # 兜底
-                rsp_dict[wechat_msg_params.key_message_type] = wechat_msg_params.val_msg_type_invalid
+                rsp_dict[wechat_msg_params.KEY_MESSAGE_TYPE] = wechat_msg_params.VAL_MSG_TYPE_INVALID
 
         return rsp_dict

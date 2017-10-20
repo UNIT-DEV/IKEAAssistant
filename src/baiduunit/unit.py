@@ -4,8 +4,9 @@ Created on 2017年7月15日
 
 @author: Administrator
 '''
-from utils.http_request import HttpRequest
 import json
+
+from utils.http_request import HttpRequest
 
 
 class BaiduUnit(object):
@@ -46,8 +47,6 @@ class BaiduUnit(object):
             return res_dic["access_token"]
         else:
             return None
-
-
 
     def query_request(self, scene_id, query, session_id):
         '''

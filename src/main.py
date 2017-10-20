@@ -6,12 +6,13 @@ Created on 2017年8月19日
 
 基于Tornado的Web Server启动入口
 '''
-import tornado.ioloop
-import tornado.web
-from requestprocesor.request_processor import RequestProcessor
-import global_common_params
 import threading
 import sys
+import tornado.ioloop
+import tornado.web
+import global_common_params
+
+from requestprocesor.request_processor import RequestProcessor
 
 reload(sys)
 sys.setdefaultencoding('utf-8')
@@ -74,5 +75,5 @@ if __name__ == "__main__":
     __init()
 
     app = __make_app()
-    app.listen(global_common_params.server_port)
+    app.listen(global_common_params.SERVER_PORT)
     tornado.ioloop.IOLoop.current().start()

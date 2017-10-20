@@ -5,38 +5,38 @@ Created on 2017年8月19日
 @author: liucaiquan
 '''
 # 基本消息信息
-key_to_user_name = 'ToUserName'
-key_from_user_name = 'FromUserName'
-key_create_time = 'CreateTime'
-key_message_type = 'MsgType'
-key_content = 'Content'
-key_message_id = 'MsgId'
-key_recognition = 'Recognition'
+KEY_TO_USER_NAME = 'ToUserName'
+KEY_FROM_USER_NAME = 'FromUserName'
+KEY_CREATE_TIME = 'CreateTime'
+KEY_MESSAGE_TYPE = 'MsgType'
+KEY_CONTENT = 'Content'
+KEY_MESSAGE_ID = 'MsgId'
+KEY_RECOGNITION = 'Recognition'
 
 # 消息类型
-val_msg_type_invalid = 'invalid'
-val_msg_type_text = 'text'
-val_msg_type_voice = 'voice'
-val_msg_type_news = 'news'
+VAL_MSG_TYPE_INVALID = 'invalid'
+VAL_MSG_TYPE_TEXT = 'text'
+VAL_MSG_TYPE_VOICE = 'voice'
+VAL_MSG_TYPE_NEWS = 'news'
 
 ##################图文回复消息相关############################
 # 图文消息个数
-key_msg_article_count = 'ArticleCount'
+KEY_MSG_ARTICLE_COUNT = 'ArticleCount'
 
 # 多条图文消息信息
-key_msg_articles = 'Articles'
+KEY_MSG_ARTICLES = 'Articles'
 
 # 图文消息标题
-key_msg_content_title = 'Title'
+KEY_MSG_CONTENT_TITLE = 'Title'
 
 # 图文消息描述
-key_msg_content_description = 'Description'
+KEY_MSG_CONTENT_DESCRIPTION = 'Description'
 
 # 图片链接
-key_msg_content_pciurl = 'PicUrl'
+KEY_MSG_CONTENT_PIC_URL = 'PicUrl'
 
 # 点击图文消息跳转链接
-key_msg_content_url = 'Url'
+KEY_MSG_CONTENT_URL = 'Url'
 
 # 用于分割的item
-key_msg_item = 'item'
+KEY_MSG_ITEM = 'item'

@@ -23,13 +23,13 @@ class MessageUtil(object):
         Constructor
         '''
 
-    def parse_xml(self, request):
+    def parse_xml(self, request_body):
         '''
             微信请求解析
                 request：微信请求句柄
                 返回信息dict
         '''
-        xml_content = request.request.body
+        xml_content = request_body
         root = etree.fromstring(xml_content)
 
         dict = {}

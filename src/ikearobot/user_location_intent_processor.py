@@ -17,9 +17,10 @@ class UserLocationProcessor(object):
     '''
         位置意图查询
     '''
+    database = IkeaDatabase()
 
     def __init__(self):
-        self.database = IkeaDatabase()
+        # self.database = IkeaDatabase()
         self.html_builder = HtmlBuilder()
 
     def __build_webpage_get_url(self, html_file_name):

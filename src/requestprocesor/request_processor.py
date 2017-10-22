@@ -32,17 +32,15 @@ class RequestProcessor(object):
         请求处理器（接入层）
     '''
 
-    def __get(self, requst):
-        req_type = requst.get_argument(request_params.KEY_REQ_GET_TYPE, default='_ARG_DEFAULT')
-        req_html_file_name = requst.get_argument(request_params.KEY_REQ_GET_HTML_FILE_NAME, default='_ARG_DEFAULT')
-        if (req_type == request_params.VAL_REQ_GET_TYPE_WEBPAGE):
-            requst.render(global_common_params.PROJECT_ROOT_PATH + '/htmls/' + req_html_file_name)
-        else:
-            requst.write("this is MyWeChatService!")
+    def __get(self, params):
+        html_file = global_common_params.PROJECT_ROOT_PATH + '/htmls/' + params
 
-    def __post(self, request):
+        return html_file
+
+    def __post(self, request_body):
+
         # 微信请求数据解析
-        req_dict = self.message_util.parse_xml(request)
+        req_dict = self.message_util.parse_xml(request_body)
 
         # 获取请求文本（语音会转成文本）
         query = ''
@@ -64,44 +62,21 @@ class RequestProcessor(object):
         rsp_xml = self.message_util.gen_xml(nul_process_rst)
         rsp_xml = self.html_parser.unescape(rsp_xml)
 
-        # print(u"%s" % rsp_xml)
+        return rsp_xml
 
-        request.write(rsp_xml)
-
-    def get_processor(self, req):
+    def get_processor(self, html_file):
         '''
             get请求处理
                 req：请求句柄
         '''
-        # print 'get request body: '
-        # print req.request.body
-        logging.info('\n\n**********\n[wechat] get request body:\n{}'.format(req.request.body))
+        return self.__get(html_file)
 
-        # 'echostr'字段用于微信后台服务的配置绑定
-        echo_str = req.get_argument('echostr', default='_ARG_DEFAULT')
-        if echo_str.strip() == '_ARG_DEFAULT':
-            self.__get(req)
-        else:
-            req.write(echo_str)
-
-            # global_common_params.thread_cnt_lock.acquire()
-            # global_common_params.current_thread_num -= 1
-            # global_common_params.thread_cnt_lock.release()
-
-    def post_processor(self, req):
+    def post_processor(self, request_body):
         '''
             post请求处理：
-                req：请求句柄
+                request_body：post请求body
         '''
-        # print 'post request body: '
-        # print req.request.body
-        logging.info('\n\n*********\n[wechat] post request body:\n{}'.format(req.request.body))
-
-        self.__post(req)
-
-        # global_common_params.thread_cnt_lock.acquire()
-        # global_common_params.current_thread_num -= 1
-        # global_common_params.thread_cnt_lock.release()
+        return self.__post(request_body)
 
     def __init__(self):
         self.message_util = MessageUtil()

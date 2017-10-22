@@ -17,10 +17,11 @@ class UserBuyProcessor(object):
     '''
         商品详情查询处理
     '''
+    database = IkeaDatabase()
 
     def __init__(self):
         self.html_builder = HtmlBuilder()
-        self.database = IkeaDatabase()
+        # self.database = IkeaDatabase()
 
     def __build_webpage_get_url(self, html_file_name):
         '''

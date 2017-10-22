@@ -26,7 +26,7 @@ class IkeaRobot(object):
         self.unit = BaiduUnit()
         self.scene_id = 9633
         self.min_confidence = 50
-        self.database = IkeaDatabase()
+        # self.database = IkeaDatabase()
         self.user_buy_processor = UserBuyProcessor()
         self.user_location_processor = UserLocationProcessor()
 

@@ -9,7 +9,7 @@ import logging
 
 # logger打印等级
 # LOGGER_LEVEL = logging.INFO
-LOGGER_LEVEL=logging.ERROR
+LOGGER_LEVEL = logging.ERROR
 
 # 工程根目录位置
 PROJECT_ROOT_PATH = '/opt/IKEAAssistant'
@@ -30,3 +30,6 @@ CURRENT_THREAD_NUM = 0
 REQUEST_LOCK = threading.Lock()
 # 线程计数器锁
 THREAD_CNT_LOCK = threading.Lock()
+
+# IKEAAssistant功能开关
+IKEA_ASSISTANT_SWITCH = False

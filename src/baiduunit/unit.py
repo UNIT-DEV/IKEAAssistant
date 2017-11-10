@@ -27,8 +27,8 @@ class BaiduUnit(object):
         self.key_client_secret = "client_secret"
         self.val_client_secret = "kZiWVLLjkXo3DOSB8nEglsjgmmyaLFOr"
 
-        # token(15th-July-2017)
-        self.val_token = "24.0c9dffb5de11b566e5c7e176d0d0faae.2592000.1506695263.282335-10028417"
+        # token(9th-November-2017)
+        self.val_token = "24.a0ca819335901b0d44ba42ffdbc54532.2592000.1512877347.282335-10028417"
 
         self.unit_requet = HttpRequest(
             "https://aip.baidubce.com/rpc/2.0/solution/v1/unit_utterance?access_token=" + self.val_token)

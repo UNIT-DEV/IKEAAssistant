@@ -31,14 +31,18 @@ class NluProcessor(object):
         request = request.replace('。', '')
         # print 'query=', request
         logging.info('query= {}'.format(request))
-        # unit 处理
-        rst = self.ikea_robot.request(request)
 
-        if (rst[wechat_msg_params.KEY_MESSAGE_TYPE] == wechat_msg_params.VAL_MSG_TYPE_INVALID):
-            # turing兜底
-            return self.turing.request(request)
+        if global_common_params.IKEA_ASSISTANT_SWITCH:
+            # unit 处理
+            rst = self.ikea_robot.request(request)
+
+            if (rst[wechat_msg_params.KEY_MESSAGE_TYPE] == wechat_msg_params.VAL_MSG_TYPE_INVALID):
+                # turing兜底
+                return self.turing.request(request)
+            else:
+                return rst
         else:
-            return rst
+            return self.turing.request(request)
 
     def __init__(self):
         self.ikea_robot = IkeaRobot()
